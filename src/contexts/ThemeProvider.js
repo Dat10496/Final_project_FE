@@ -5,19 +5,19 @@ import {
 } from "@mui/material/styles";
 
 const PRIMARY = {
-  lighter: "#FFD07F",
-  light: "#FDA65D",
-  main: "#FF8243",
-  dark: "#E26A2C",
-  darker: "#cc571f",
-  contrastText: "#FFF",
-};
-const SECONDARY = {
   lighter: "#D6E4FF",
   light: "#84A9FF",
   main: "#3366FF",
   dark: "#1939B7",
   darker: "#091A7A",
+  contrastText: "#FFF",
+};
+const SECONDARY = {
+  lighter: "#FFD07F",
+  light: "#FDA65D",
+  main: "#FF8243",
+  dark: "#E26A2C",
+  darker: "#cc571f",
   contrastText: "#FFF",
 };
 const SUCCESS = {

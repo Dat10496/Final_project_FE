@@ -30,7 +30,7 @@ const MainHeader = () => {
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Logo sx={{ borderRadius: 3 }} />
+          <Logo />
           <Typography
             variant="h6"
             noWrap
