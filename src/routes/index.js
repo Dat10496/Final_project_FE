@@ -3,6 +3,7 @@ import { Route, Routes } from "react-router-dom";
 import BlankLayout from "../layouts/BlankLayout";
 import MainLayout from "../layouts/MainLayout";
 import AdminPage from "../pages/AdminPage";
+import CollectionPage from "../pages/CollectionPage";
 import DetailPage from "../pages/DetailPage";
 import HomePage from "../pages/HomePage";
 import LoginPage from "../pages/LoginPage";
@@ -15,7 +16,8 @@ function Router() {
     <Routes>
       <Route element={<MainLayout />}>
         <Route index element={<HomePage />} />
-        <Route path="/items" element={<DetailPage />} />
+        <Route path="/collections/:brand" element={<CollectionPage />} />
+        <Route path="/items/:id" element={<DetailPage />} />
         <Route path="/payment" element={<PaymentPage />} />
       </Route>
       <Route element={<BlankLayout />}>

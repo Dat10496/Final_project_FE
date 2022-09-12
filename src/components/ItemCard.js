@@ -1,15 +1,22 @@
 import { Card, CardContent, CardMedia, Grid, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 function ItemCard({ item }) {
-  console.log(item);
+  const itemId = item._id;
+
+  const navigate = useNavigate();
+
   return (
-    <Card sx={{ maxWidth: 250, maxHeight: 350, p: 0.5 }}>
+    <Card
+      onClick={() => navigate(`/items/${itemId}`)}
+      sx={{ maxWidth: 250, maxHeight: 350, p: 0.5 }}
+    >
       <CardMedia
         sx={{ borderRadius: 1.2 }}
         component="img"
-        height="140"
+        height="180"
         src={item.image}
         alt={item.brand}
       />
@@ -20,7 +27,7 @@ function ItemCard({ item }) {
         <Typography variant="body2" color="text.secondary">
           {item.details}
         </Typography>
-        <Typography variant="body2" color="text.secondary">
+        <Typography variant="subtitle2" color="palette.primary.lighter">
           {item.price}
         </Typography>
       </CardContent>

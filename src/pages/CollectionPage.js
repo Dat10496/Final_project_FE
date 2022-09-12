@@ -1,23 +1,25 @@
 import { Box, Container, Grid, Pagination, Stack } from "@mui/material";
 import { React, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 import ItemCard from "../components/ItemCard";
 import LoadingScreen from "../components/LoadingScreen";
-import ProductFilter from "../components/ProductFilter";
-import { getItems } from "../features/item/itemSlice";
+import { sortItemsByBrand } from "../features/item/itemSlice";
 
-function HomePage() {
+function CollectionPage() {
   const [page, setPage] = useState(1);
   const { isLoading, items, totalPages } = useSelector((state) => state.item);
   const dispatch = useDispatch();
+  const params = useParams();
+  const { brand } = params;
 
   const handleChangePage = (e, value) => {
     setPage(value);
   };
 
   useEffect(() => {
-    dispatch(getItems({ page }));
-  }, [page, dispatch]);
+    dispatch(sortItemsByBrand({ page, brand }));
+  }, [page, dispatch, brand]);
 
   return (
     <>
@@ -25,24 +27,21 @@ function HomePage() {
         sx={{
           display: "flex",
           minHeight: "100vh",
-          mt: 3,
+          mt: 2,
           maxWidth: "100vh",
+          flexWrap: "wrap",
+          justifyContent: "flex-end",
         }}
       >
-        <Stack>
-          <ProductFilter />
-        </Stack>
         {isLoading ? (
           <LoadingScreen />
         ) : (
           <>
-            <Grid container spacing={2} mt={1}>
-              {items.map((item) => (
-                <Grid key={item._id} item xs={6} md={4} lg={3}>
-                  <ItemCard item={item} />
-                </Grid>
-              ))}
-            </Grid>
+            {items.map((item) => (
+              <Grid key={item._id} item xs={6} md={4} p={1}>
+                <ItemCard item={item} key={item._id} />
+              </Grid>
+            ))}
           </>
         )}
       </Container>
@@ -66,4 +65,4 @@ function HomePage() {
   );
 }
 
-export default HomePage;
+export default CollectionPage;

@@ -11,18 +11,20 @@ import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import Logo from "../components/Logo";
 import ShoppingCartRoundedIcon from "@mui/icons-material/ShoppingCartRounded";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 
-const pages = ["Reebok", "Campus", "Adidas", "Puma"];
+const brands = ["Reebok", "Campus", "Adidas", "Puma", "Sparx"];
 
 const MainHeader = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
+  const navigate = useNavigate();
 
-  const handleOpenNavMenu = (event) => {
+  const handleOpenNavMenu = (event, value) => {
     setAnchorElNav(event.currentTarget);
   };
 
-  const handleCloseNavMenu = () => {
+  const handleCloseNavMenu = (brand) => {
+    navigate(`/collections/${brand}`);
     setAnchorElNav(null);
   };
 
@@ -74,14 +76,18 @@ const MainHeader = () => {
                 horizontal: "left",
               }}
               open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
               sx={{
                 display: { xs: "block", md: "none" },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+              {brands.map((brand) => (
+                <MenuItem key={brand}>
+                  <Typography
+                    onClick={() => handleCloseNavMenu(brand)}
+                    textAlign="center"
+                  >
+                    {brand}
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -106,13 +112,13 @@ const MainHeader = () => {
             Sneaker
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
+            {brands.map((brand) => (
               <Button
-                key={page}
-                onClick={handleCloseNavMenu}
+                key={brand}
+                onClick={() => handleCloseNavMenu(brand)}
                 sx={{ my: 2, color: "white", display: "block" }}
               >
-                {page}
+                {brand}
               </Button>
             ))}
           </Box>
