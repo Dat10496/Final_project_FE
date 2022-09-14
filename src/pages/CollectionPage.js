@@ -2,9 +2,9 @@ import { Box, Container, Grid, Pagination, Stack } from "@mui/material";
 import { React, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import ItemCard from "../components/ItemCard";
+import ItemCard from "../features/item/ItemCard";
 import LoadingScreen from "../components/LoadingScreen";
-import { sortItemsByBrand } from "../features/item/itemSlice";
+import { getItems } from "../features/item/itemSlice";
 
 function CollectionPage() {
   const [page, setPage] = useState(1);
@@ -18,7 +18,7 @@ function CollectionPage() {
   };
 
   useEffect(() => {
-    dispatch(sortItemsByBrand({ page, brand }));
+    dispatch(getItems({ page, brand }));
   }, [page, dispatch, brand]);
 
   return (

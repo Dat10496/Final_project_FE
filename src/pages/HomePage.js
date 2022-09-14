@@ -1,7 +1,7 @@
-import { Box, Container, Grid, Pagination, Stack } from "@mui/material";
+import { Container, Grid, Pagination, Stack } from "@mui/material";
 import { React, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import ItemCard from "../components/ItemCard";
+import ItemCard from "../features/item/ItemCard";
 import LoadingScreen from "../components/LoadingScreen";
 import ProductFilter from "../components/ProductFilter";
 import { getItems } from "../features/item/itemSlice";
@@ -30,7 +30,7 @@ function HomePage() {
         }}
       >
         <Stack>
-          <ProductFilter />
+          <ProductFilter page={page} />
         </Stack>
         {isLoading ? (
           <LoadingScreen />

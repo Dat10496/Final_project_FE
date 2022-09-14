@@ -1,5 +1,4 @@
-import { Card, CardContent, CardMedia, Grid, Typography } from "@mui/material";
-import { Stack } from "@mui/system";
+import { Card, CardContent, CardMedia, Typography } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -28,7 +27,7 @@ function ItemCard({ item }) {
           {item.details}
         </Typography>
         <Typography variant="subtitle2" color="palette.primary.lighter">
-          {item.price}
+          {`$${item.price}`}
         </Typography>
       </CardContent>
     </Card>

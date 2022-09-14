@@ -23,7 +23,7 @@ function Router() {
       <Route element={<BlankLayout />}>
         <Route path="/admin/login" element={<LoginPage />} />
         <Route path="/admin/register" element={<RegisterPage />} />
-      </Route>
+      </Route>  
       <Route
         element={
           <AuthRequire>
