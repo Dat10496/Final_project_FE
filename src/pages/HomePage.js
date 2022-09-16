@@ -1,26 +1,34 @@
-import { Container, Grid, Pagination, Stack } from "@mui/material";
+import { Box, Container, Grid, Pagination, Stack } from "@mui/material";
 import { React, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ItemCard from "../features/item/ItemCard";
 import LoadingScreen from "../components/LoadingScreen";
 import ProductFilter from "../components/ProductFilter";
 import { getItems } from "../features/item/itemSlice";
+import SortBy from "../components/SortBy";
+import ProductSearch from "../components/ProductSearch";
+import { useParams } from "react-router-dom";
 
 function HomePage() {
   const [page, setPage] = useState(1);
   const { isLoading, items, totalPages } = useSelector((state) => state.item);
   const dispatch = useDispatch();
-
+  const params = useParams();
+  const { brand } = params;
   const handleChangePage = (e, value) => {
     setPage(value);
   };
 
   useEffect(() => {
-    dispatch(getItems({ page }));
-  }, [page, dispatch]);
+    dispatch(getItems({ page, brand }));
+  }, [page, dispatch, brand]);
 
   return (
     <>
+      <Box display="flex" justifyContent="flex-end" mr={3}>
+        <ProductSearch />
+        <SortBy />
+      </Box>
       <Container
         sx={{
           display: "flex",

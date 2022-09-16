@@ -12,6 +12,7 @@ import { getItems } from "../features/item/itemSlice";
 import { useDispatch } from "react-redux";
 import StarOutlineIcon from "@mui/icons-material/StarOutline";
 import ClearAllIcon from "@mui/icons-material/ClearAll";
+import SortIcon from "@mui/icons-material/Sort";
 
 const FILTER_BY_RATING = [
   { value: "$lte 3", label: "Below 3" },
@@ -25,9 +26,18 @@ const FILTER_BY_PRICE = [
   { value: "$gte 1500", label: "Above $1500" },
 ];
 
+const FILTER_BY_BRAND = [
+  { value: "Asian", label: "Asian" },
+  { value: "Campus", label: "Campus" },
+  { value: "Reebok", label: "Reebok" },
+  { value: "Sparx", label: "Sparx" },
+  { value: "Adidas", label: "Adidas" },
+];
+
 function ProductFilter({ page }) {
-  const [sortByPrice, setSortByPrice] = useState();
-  const [sortByRating, setSortByRating] = useState();
+  const [sortByPrice, setSortByPrice] = useState({});
+  const [sortByRating, setSortByRating] = useState({});
+  const [sortByBrand, setSortByBrand] = useState({});
   const dispatch = useDispatch();
 
   const handleSelectPrice = (option) => {
@@ -40,21 +50,44 @@ function ProductFilter({ page }) {
     setSortByRating({ rating });
   };
 
+  const handleSelectBrand = (option) => {
+    const brand = option.value;
+    setSortByBrand({ brand });
+  };
+
   const handleSortOption = () => {
     const { price } = sortByPrice;
     const { rating } = sortByRating;
-    dispatch(getItems({ price, rating }));
+    const { brand } = sortByBrand;
+
+    dispatch(getItems({ price, rating, brand }));
   };
 
   const resetFilter = () => {
-    setSortByPrice();
     setSortByRating();
-    dispatch(getItems({ page }));
+    setSortByPrice();
+    window.location.reload();
   };
 
   return (
     <>
       <Stack m={1} spacing={2}>
+        <Stack>
+          <Typography>Brand ({sortByBrand.brand})</Typography>
+          {FILTER_BY_BRAND.map((option) => (
+            <Typography
+              onClick={() => handleSelectBrand(option)}
+              key={option.value}
+              component={Button}
+              variant="caption "
+              color="black"
+              size="small"
+            >
+              {option.label}
+            </Typography>
+          ))}
+        </Stack>
+        <Divider variant="middle" />
         <Stack>
           <Typography>Price</Typography>
           <RadioGroup name="PriceRange">
@@ -91,11 +124,13 @@ function ProductFilter({ page }) {
         </Stack>
       </Stack>
       <Stack>
-        <Button onClick={handleSortOption}>Supply</Button>
+        <Button startIcon={<SortIcon />} onClick={handleSortOption}>
+          Filter
+        </Button>
       </Stack>
       <Button
         size="large"
-        type="submit"
+        type="reset"
         color="inherit"
         variant="outlined"
         onClick={resetFilter}

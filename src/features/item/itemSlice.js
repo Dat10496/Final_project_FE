@@ -6,6 +6,8 @@ const initialState = {
   error: null,
   items: [],
   totalPages: {},
+  itemDetail: {},
+  cart: [],
 };
 
 const ITEM_PER_PAGE = 12;
@@ -27,15 +29,20 @@ const slice = createSlice({
       state.items = action.payload.items;
       state.totalPages = parseInt(action.payload.totalPages);
     },
+    getItemDetailSuccess(state, action) {
+      state.isLoading = false;
+      state.hasError = null;
+      state.itemDetail = action.payload;
+    },
   },
 });
 
 export const getItems =
-  ({ brand, price, rating, page, limit = ITEM_PER_PAGE }) =>
+  ({ brand, price, rating, page, value, limit = ITEM_PER_PAGE }) =>
   async (dispatch) => {
     dispatch(slice.actions.startLoading());
     try {
-      let params = { page, limit, brand, rating, price };
+      let params = { page, limit, brand, rating, price, value };
 
       if (brand) params.brand = brand;
       if (price) params.price = price;
@@ -43,6 +50,19 @@ export const getItems =
 
       const response = await apiService.get("/items", { params });
       dispatch(slice.actions.getItemSuccess(response.data.data));
+    } catch (error) {
+      dispatch(slice.actions.hasError(error.message));
+    }
+  };
+
+export const getItemDetail =
+  ({ itemId }) =>
+  async (dispatch) => {
+    dispatch(slice.actions.startLoading());
+    try {
+      console.log(itemId);
+      const response = await apiService.get(`/items/${itemId}`);
+      dispatch(slice.actions.getItemDetailSuccess(response.data.data));
     } catch (error) {
       dispatch(slice.actions.hasError(error.message));
     }
