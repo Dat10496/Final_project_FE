@@ -8,6 +8,7 @@ const initialState = {
   totalPages: {},
   itemDetail: {},
   cart: [],
+  totalPrice: 0,
 };
 
 const ITEM_PER_PAGE = 12;
@@ -33,6 +34,19 @@ const slice = createSlice({
       state.isLoading = false;
       state.hasError = null;
       state.itemDetail = action.payload;
+    },
+    getItemToCartSuccess(state, action) {
+      state.isLoading = false;
+      state.hasError = null;
+      state.cart.push(action.payload);
+      state.totalPrice += action.payload.price;
+    },
+    removeItemFromCartSuccess(state, action) {
+      state.isLoading = false;
+      state.hasError = null;
+      const { index, item } = action.payload;
+      state.cart.splice(index, 1);
+      state.totalPrice -= item.price;
     },
   },
 });
@@ -60,9 +74,31 @@ export const getItemDetail =
   async (dispatch) => {
     dispatch(slice.actions.startLoading());
     try {
-      console.log(itemId);
       const response = await apiService.get(`/items/${itemId}`);
       dispatch(slice.actions.getItemDetailSuccess(response.data.data));
+    } catch (error) {
+      dispatch(slice.actions.hasError(error.message));
+    }
+  };
+
+export const getItemToCart =
+  ({ item }) =>
+  async (dispatch) => {
+    dispatch(slice.actions.startLoading());
+    try {
+      dispatch(slice.actions.getItemToCartSuccess(item));
+    } catch (error) {
+      dispatch(slice.actions.hasError(error.message));
+    }
+  };
+
+export const removeItemFromCart =
+  ({ item, index }) =>
+  async (dispatch) => {
+    dispatch(slice.actions.startLoading());
+    console.log(index);
+    try {
+      dispatch(slice.actions.removeItemFromCartSuccess({ index, item }));
     } catch (error) {
       dispatch(slice.actions.hasError(error.message));
     }

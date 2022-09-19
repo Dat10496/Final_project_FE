@@ -12,7 +12,7 @@ import { React, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import LoadingScreen from "../components/LoadingScreen";
-import { getItemDetail } from "../features/item/itemSlice";
+import { getItemDetail, getItemToCart } from "../features/item/itemSlice";
 
 function DetailPage() {
   const params = useParams();
@@ -24,7 +24,11 @@ function DetailPage() {
     dispatch(getItemDetail({ itemId }));
   }, [dispatch, itemId]);
 
-  console.log(itemDetail);
+  const handleAddToCart = (itemDetail) => {
+    const item = itemDetail;
+    dispatch(getItemToCart({ item }));
+  };
+
   return (
     <>
       {isLoading ? (
@@ -69,7 +73,9 @@ function DetailPage() {
               <Rating value={itemDetail.rating} precision={0.1} readOnly />
             </CardContent>
             <CardActions>
-              <Button size="small">Add to Cart</Button>
+              <Button onClick={() => handleAddToCart(itemDetail)} size="small">
+                Add to Cart
+              </Button>
             </CardActions>
           </Card>
         </Container>
