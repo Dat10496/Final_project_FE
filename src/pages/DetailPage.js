@@ -12,7 +12,7 @@ import { React, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import LoadingScreen from "../components/LoadingScreen";
-import { getItemDetail, getItemToCart } from "../features/item/itemSlice";
+import { getItemDetail, addItemToCart } from "../features/item/itemSlice";
 
 function DetailPage() {
   const params = useParams();
@@ -26,7 +26,7 @@ function DetailPage() {
 
   const handleAddToCart = (itemDetail) => {
     const item = itemDetail;
-    dispatch(getItemToCart({ item }));
+    dispatch(addItemToCart({ item }));
   };
 
   return (

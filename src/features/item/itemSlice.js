@@ -48,6 +48,12 @@ const slice = createSlice({
       state.cart.splice(index, 1);
       state.totalPrice -= item.price;
     },
+    paymentSuccess(state, action) {
+      state.isLoading = false;
+      state.hasError = null;
+      state.totalPrice = 0;
+      state.cart = [];
+    },
   },
 });
 
@@ -81,7 +87,7 @@ export const getItemDetail =
     }
   };
 
-export const getItemToCart =
+export const addItemToCart =
   ({ item }) =>
   async (dispatch) => {
     dispatch(slice.actions.startLoading());
@@ -96,9 +102,21 @@ export const removeItemFromCart =
   ({ item, index }) =>
   async (dispatch) => {
     dispatch(slice.actions.startLoading());
-    console.log(index);
+
     try {
       dispatch(slice.actions.removeItemFromCartSuccess({ index, item }));
+    } catch (error) {
+      dispatch(slice.actions.hasError(error.message));
+    }
+  };
+
+export const payment =
+  ({ details }) =>
+  async (dispatch) => {
+    dispatch(slice.actions.startLoading());
+    console.log(details);
+    try {
+      dispatch(slice.actions.paymentSuccess());
     } catch (error) {
       dispatch(slice.actions.hasError(error.message));
     }

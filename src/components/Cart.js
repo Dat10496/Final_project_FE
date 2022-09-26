@@ -16,7 +16,7 @@ function Cart({ items }) {
       <Box display="flex" flexDirection="column">
         {items.map((item) => (
           <>
-            <Card>
+            <Card key={item._id}>
               <Typography>price {item.price}</Typography>
               <Button onClick={() => handleRemoveItem(item)}>Remove</Button>
             </Card>
