@@ -48,11 +48,10 @@ function RegisterPage() {
   } = methods;
   const onSubmit = async (data) => {
     const { name, email, password } = data;
-    console.log(errors);
 
     try {
       await auth.register({ name, email, password }, () => {
-        navigate("/admin", { replace: true });
+        navigate("/", { replace: true });
       });
     } catch (error) {
       reset();
@@ -70,7 +69,7 @@ function RegisterPage() {
           <Alert severity="info">
             {" "}
             Already have an account?
-            <Link variant="subtitle2" component={RouterLink} to="/admin/login">
+            <Link variant="subtitle2" component={RouterLink} to="/login">
               Sign in
             </Link>
           </Alert>

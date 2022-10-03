@@ -1,26 +1,29 @@
 import { Box } from "@mui/material";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { payment } from "../features/item/itemSlice";
+import useAuth from "../hooks/useAuth";
 
 const style = {
   layout: "vertical",
   shape: "pill",
   label: "checkout",
-  maxHeight: "30",
-  width: "30",
+  color: "blue",
 };
 
 export default function Paypal({ toPay }) {
   const dispatch = useDispatch();
+  const { cart } = useSelector((state) => state.item);
+  const auth = useAuth();
+  const { user } = auth;
 
   const onSuccess = (details) => {
-    dispatch(payment({ details }));
+    dispatch(payment({ details, user, cart }));
     console.log(details, "data");
   };
   return (
-    <Box sx={{ width: "50px", height: "50px" }}>
+    <Box sx={{ width: "300px", height: "50px" }}>
       <PayPalScriptProvider
         options={{
           "client-id":
@@ -42,13 +45,13 @@ export default function Paypal({ toPay }) {
           onApprove={function (data, actions) {
             return actions.order.capture().then(function (details) {
               // Your code here after capture the order
-              console.log("Payment successfully", details);
+              console.log("The payment was succeeded", details);
               onSuccess(details);
             });
           }}
           onCancel={function (data) {
             // Show a cancel page, or return to cart
-            console.log(data);
+            console.log("The payment was canceled", data);
           }}
           style={style}
         />

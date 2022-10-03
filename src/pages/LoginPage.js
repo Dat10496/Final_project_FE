@@ -49,7 +49,7 @@ function LogInPage() {
 
     try {
       await auth.login({ email, password }, () => {
-        navigate("/admin", { replace: true });
+        navigate("/", { replace: true });
       });
     } catch (error) {
       reset();
@@ -67,11 +67,7 @@ function LogInPage() {
           <Alert severity="info">
             {" "}
             Don't have an account?
-            <Link
-              variant="subtitle2"
-              component={RouterLink}
-              to="/admin/register"
-            >
+            <Link variant="subtitle2" component={RouterLink} to="/register">
               Get started
             </Link>
           </Alert>

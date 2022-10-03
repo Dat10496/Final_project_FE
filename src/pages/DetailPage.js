@@ -13,20 +13,24 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import LoadingScreen from "../components/LoadingScreen";
 import { getItemDetail, addItemToCart } from "../features/item/itemSlice";
+import useAuth from "../hooks/useAuth";
 
 function DetailPage() {
   const params = useParams();
   const itemId = params.id;
   const dispatch = useDispatch();
+  const auth = useAuth();
+
   const { isLoading, itemDetail } = useSelector((state) => state.item);
+  const userId = auth.user._id;
 
   useEffect(() => {
-    dispatch(getItemDetail({ itemId }));
+    dispatch(getItemDetail({ itemId, userId }));
   }, [dispatch, itemId]);
 
   const handleAddToCart = (itemDetail) => {
-    const item = itemDetail;
-    dispatch(addItemToCart({ item }));
+    const product = itemDetail;
+    dispatch(addItemToCart({ product, userId }));
   };
 
   return (

@@ -8,7 +8,6 @@ const initialState = {
   totalPages: {},
   itemDetail: {},
   cart: [],
-  totalPrice: 0,
 };
 
 const ITEM_PER_PAGE = 12;
@@ -39,20 +38,28 @@ const slice = createSlice({
       state.isLoading = false;
       state.hasError = null;
       state.cart.push(action.payload);
-      state.totalPrice += action.payload.price;
     },
     removeItemFromCartSuccess(state, action) {
       state.isLoading = false;
       state.hasError = null;
       const { index, item } = action.payload;
       state.cart.splice(index, 1);
-      state.totalPrice -= item.price;
     },
     paymentSuccess(state, action) {
       state.isLoading = false;
       state.hasError = null;
-      state.totalPrice = 0;
       state.cart = [];
+    },
+    handleQtyOfItemSuccess(state, action) {
+      state.isLoading = false;
+      state.hasError = null;
+      const { product, quantity } = action.payload;
+
+      state.cart.forEach((item) => {
+        if (item.product._id === product.product._id) {
+          item.quantity = parseInt(quantity);
+        }
+      });
     },
   },
 });
@@ -88,11 +95,11 @@ export const getItemDetail =
   };
 
 export const addItemToCart =
-  ({ item }) =>
+  ({ product, userId }) =>
   async (dispatch) => {
     dispatch(slice.actions.startLoading());
     try {
-      dispatch(slice.actions.getItemToCartSuccess(item));
+      dispatch(slice.actions.getItemToCartSuccess({ product, quantity: 1 }));
     } catch (error) {
       dispatch(slice.actions.hasError(error.message));
     }
@@ -110,12 +117,27 @@ export const removeItemFromCart =
     }
   };
 
-export const payment =
-  ({ details }) =>
+export const handleQtyOfItem =
+  ({ product, quantity }) =>
   async (dispatch) => {
     dispatch(slice.actions.startLoading());
-    console.log(details);
+
     try {
+      dispatch(slice.actions.handleQtyOfItemSuccess({ product, quantity }));
+    } catch (error) {
+      dispatch(slice.actions.hasError(error.message));
+    }
+  };
+
+export const payment =
+  ({ details, user, cart }) =>
+  async (dispatch) => {
+    dispatch(slice.actions.startLoading());
+    console.log(details, user);
+    try {
+      let body = { details, user, cart };
+      const response = await apiService.post("/payment", body);
+      console.log(response);
       dispatch(slice.actions.paymentSuccess());
     } catch (error) {
       dispatch(slice.actions.hasError(error.message));

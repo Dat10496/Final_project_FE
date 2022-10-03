@@ -12,12 +12,18 @@ import MenuItem from "@mui/material/MenuItem";
 import Logo from "../components/Logo";
 import ShoppingCartRoundedIcon from "@mui/icons-material/ShoppingCartRounded";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
+import { Badge } from "@mui/material";
+import { useSelector } from "react-redux";
+import useAuth from "../hooks/useAuth";
 
 const brands = ["Reebok", "Campus", "Adidas", "Puma", "Sparx"];
 
 const MainHeader = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
+
   const navigate = useNavigate();
+  const auth = useAuth();
+  const { user } = auth;
 
   const handleOpenNavMenu = (event, value) => {
     setAnchorElNav(event.currentTarget);
@@ -27,6 +33,8 @@ const MainHeader = () => {
     navigate(`/collections/${brand}`);
     setAnchorElNav(null);
   };
+
+  const { cart } = useSelector((state) => state.item);
 
   return (
     <AppBar position="static">
@@ -123,12 +131,16 @@ const MainHeader = () => {
             ))}
           </Box>
 
-          <Box
-            sx={{ flexGrow: 0, color: "white" }}
-            component={RouterLink}
-            to="/payment"
-          >
-            <ShoppingCartRoundedIcon />
+          <p>{user ? user.name : ""}</p>
+          <Box sx={{ flexGrow: 0, color: "white" }}>
+            <Badge
+              component={RouterLink}
+              to="/payment"
+              badgeContent={cart.length}
+              color="secondary"
+            >
+              <ShoppingCartRoundedIcon sx={{ color: "white" }} />
+            </Badge>
           </Box>
         </Toolbar>
       </Container>

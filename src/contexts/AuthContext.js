@@ -1,47 +1,47 @@
-import { createContext, useReducer, useEffect } from "react";
+import { useReducer, createContext, useEffect } from "react";
 import apiService from "../app/apiService";
 import { isValidToken } from "../utils/jwt";
 
 const initialState = {
   isInitialized: false,
   isAuthenticated: false,
-  admin: null,
+  user: null,
 };
 
 const INITIALIZE = "AUTH.INITIALIZE";
-const LOGIN_SUCCESS = "AUTH.LOGIN_SUCCESS";
+const lOGIN_SUCCESS = "AUTH.LOGIN_SUCCESS";
 const REGISTER_SUCCESS = "AUTH.REGISTER_SUCCESS";
 const LOGOUT = "AUTH.LOGOUT";
 
-const AuthContext = createContext({ initialState });
+const AuthContext = createContext({ ...initialState });
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case LOGIN_SUCCESS:
+    case lOGIN_SUCCESS:
       return {
         ...state,
         isAuthenticated: true,
-        admin: action.payload.admin,
+        user: action.payload.user,
       };
     case REGISTER_SUCCESS:
       return {
         ...state,
         isAuthenticated: true,
-        admin: action.payload.admin,
+        user: action.payload.user,
       };
     case INITIALIZE:
-      const { isAuthenticated, admin } = action.payload;
+      const { isAuthenticated, user } = action.payload;
       return {
         ...state,
         isInitialized: true,
         isAuthenticated,
-        admin,
+        user,
       };
     case LOGOUT:
       return {
         ...state,
         isAuthenticated: false,
-        admin: null,
+        user: null,
       };
 
     default:
@@ -69,68 +69,68 @@ function AuthProvider({ children }) {
         if (accessToken && isValidToken(accessToken)) {
           setSession(accessToken);
 
-          const response = await apiService.get("/admin");
-          console.log(response);
-          const admin = response.data.data;
+          const response = await apiService.get("/users");
+          const user = response.data.data;
           dispatch({
             type: INITIALIZE,
-            payload: { isAuthenticated: true, admin },
+            payload: { isAuthenticated: true, user },
           });
         } else {
           setSession(null);
           dispatch({
             type: INITIALIZE,
-            payload: { isAuthenticated: false, admin: null },
+            payload: { isAuthenticated: false, user: null },
           });
         }
-      } catch (error) {}
+      } catch (error) {
+        setSession(null);
+        dispatch({
+          type: INITIALIZE,
+          payload: { isAuthenticated: false, user: null },
+        });
+      }
     };
     initialize();
   }, []);
 
+  const login = async ({ email, password }, callback) => {
+    const response = await apiService.post("/auth/login", { email, password });
+
+    const { user, accessToken } = response.data.data;
+
+    setSession(accessToken);
+    dispatch({
+      type: lOGIN_SUCCESS,
+      payload: { user },
+    });
+
+    callback();
+  };
+
   const register = async ({ name, email, password }, callback) => {
-    const response = await apiService.post("/admin", { name, email, password });
-    const { admin, accessToken } = response.data.data;
+    const response = await apiService.post("/users", { name, email, password });
+    const { user, accessToken } = response.data.data;
 
     setSession(accessToken);
     dispatch({
       type: REGISTER_SUCCESS,
-      payload: { admin },
+      payload: { user },
     });
-
     callback();
   };
 
-  const login = async ({ email, password }, callback) => {
-    const response = await apiService.post("/auth/admin/login", {
-      email,
-      password,
-    });
-    const { admin, accessToken } = response.data.data;
-
-    setSession(accessToken);
-    dispatch({
-      type: LOGIN_SUCCESS,
-      payload: { admin },
-    });
-
-    callback();
-  };
-
-  const logout = async (callback) => {
+  const logout = (callback) => {
     setSession(null);
     dispatch({
       type: LOGOUT,
     });
-
     callback();
   };
-
   return (
-    <AuthContext.Provider value={{ ...state, register, login, logout }}>
+    <AuthContext.Provider value={{ ...state, login, register, logout }}>
       {children}
     </AuthContext.Provider>
   );
 }
 
-export { AuthContext, AuthProvider };
+export { AuthProvider, AuthContext };
