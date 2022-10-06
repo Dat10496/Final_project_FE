@@ -13,8 +13,8 @@ import Logo from "../components/Logo";
 import ShoppingCartRoundedIcon from "@mui/icons-material/ShoppingCartRounded";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { Badge } from "@mui/material";
-import { useSelector } from "react-redux";
 import useAuth from "../hooks/useAuth";
+import { useEffect } from "react";
 
 const brands = ["Reebok", "Campus", "Adidas", "Puma", "Sparx"];
 
@@ -23,7 +23,7 @@ const MainHeader = () => {
 
   const navigate = useNavigate();
   const auth = useAuth();
-  const { user } = auth;
+  const { user, cart } = auth;
 
   const handleOpenNavMenu = (event, value) => {
     setAnchorElNav(event.currentTarget);
@@ -34,7 +34,7 @@ const MainHeader = () => {
     setAnchorElNav(null);
   };
 
-  const { cart } = useSelector((state) => state.item);
+  useEffect(() => {}, [cart]);
 
   return (
     <AppBar position="static">
@@ -44,8 +44,8 @@ const MainHeader = () => {
           <Typography
             variant="h6"
             noWrap
-            component="a"
-            href="/"
+            component={RouterLink}
+            to="/"
             sx={{
               mr: 2,
               ml: 2,
@@ -104,8 +104,8 @@ const MainHeader = () => {
           <Typography
             variant="h5"
             noWrap
-            component="a"
-            href=""
+            component={RouterLink}
+            to="/"
             sx={{
               mr: 2,
               display: { xs: "flex", md: "none" },

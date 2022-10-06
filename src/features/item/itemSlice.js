@@ -5,9 +5,7 @@ const initialState = {
   isLoading: false,
   error: null,
   items: [],
-  totalPages: {},
   itemDetail: {},
-  cart: [],
 };
 
 const ITEM_PER_PAGE = 12;
@@ -19,47 +17,29 @@ const slice = createSlice({
     startLoading(state) {
       state.isLoading = true;
     },
+
     hasError(state, action) {
       state.isLoading = false;
       state.error = action.payload;
     },
+
     getItemSuccess(state, action) {
       state.isLoading = false;
       state.hasError = null;
       state.items = action.payload.items;
       state.totalPages = parseInt(action.payload.totalPages);
     },
+
     getItemDetailSuccess(state, action) {
       state.isLoading = false;
       state.hasError = null;
       state.itemDetail = action.payload;
     },
-    getItemToCartSuccess(state, action) {
-      state.isLoading = false;
-      state.hasError = null;
-      state.cart.push(action.payload);
-    },
-    removeItemFromCartSuccess(state, action) {
-      state.isLoading = false;
-      state.hasError = null;
-      const { index, item } = action.payload;
-      state.cart.splice(index, 1);
-    },
+
     paymentSuccess(state, action) {
       state.isLoading = false;
       state.hasError = null;
       state.cart = [];
-    },
-    handleQtyOfItemSuccess(state, action) {
-      state.isLoading = false;
-      state.hasError = null;
-      const { product, quantity } = action.payload;
-
-      state.cart.forEach((item) => {
-        if (item.product._id === product.product._id) {
-          item.quantity = parseInt(quantity);
-        }
-      });
     },
   },
 });
@@ -89,41 +69,6 @@ export const getItemDetail =
     try {
       const response = await apiService.get(`/items/${itemId}`);
       dispatch(slice.actions.getItemDetailSuccess(response.data.data));
-    } catch (error) {
-      dispatch(slice.actions.hasError(error.message));
-    }
-  };
-
-export const addItemToCart =
-  ({ product, userId }) =>
-  async (dispatch) => {
-    dispatch(slice.actions.startLoading());
-    try {
-      dispatch(slice.actions.getItemToCartSuccess({ product, quantity: 1 }));
-    } catch (error) {
-      dispatch(slice.actions.hasError(error.message));
-    }
-  };
-
-export const removeItemFromCart =
-  ({ item, index }) =>
-  async (dispatch) => {
-    dispatch(slice.actions.startLoading());
-
-    try {
-      dispatch(slice.actions.removeItemFromCartSuccess({ index, item }));
-    } catch (error) {
-      dispatch(slice.actions.hasError(error.message));
-    }
-  };
-
-export const handleQtyOfItem =
-  ({ product, quantity }) =>
-  async (dispatch) => {
-    dispatch(slice.actions.startLoading());
-
-    try {
-      dispatch(slice.actions.handleQtyOfItemSuccess({ product, quantity }));
     } catch (error) {
       dispatch(slice.actions.hasError(error.message));
     }

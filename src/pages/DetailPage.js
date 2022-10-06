@@ -12,7 +12,7 @@ import { React, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import LoadingScreen from "../components/LoadingScreen";
-import { getItemDetail, addItemToCart } from "../features/item/itemSlice";
+import { getItemDetail } from "../features/item/itemSlice";
 import useAuth from "../hooks/useAuth";
 
 function DetailPage() {
@@ -21,16 +21,29 @@ function DetailPage() {
   const dispatch = useDispatch();
   const auth = useAuth();
 
-  const { isLoading, itemDetail } = useSelector((state) => state.item);
   const userId = auth.user._id;
+  const { addCart, cart } = auth;
+
+  const { isLoading, itemDetail } = useSelector((state) => state.item);
 
   useEffect(() => {
-    dispatch(getItemDetail({ itemId, userId }));
+    dispatch(getItemDetail({ itemId }));
   }, [dispatch, itemId]);
 
   const handleAddToCart = (itemDetail) => {
     const product = itemDetail;
-    dispatch(addItemToCart({ product, userId }));
+
+    const check = cart.every((item) => {
+      return item.product._id !== product._id;
+    });
+
+    if (check) {
+      cart.push({ product, quantity: 1 });
+
+      addCart({ cart, userId });
+    } else {
+      alert("This product has been added to cart");
+    }
   };
 
   return (

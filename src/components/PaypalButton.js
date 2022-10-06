@@ -1,7 +1,6 @@
 import { Box } from "@mui/material";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { payment } from "../features/item/itemSlice";
 import useAuth from "../hooks/useAuth";
 
@@ -12,16 +11,16 @@ const style = {
   color: "blue",
 };
 
-export default function Paypal({ toPay }) {
+export default function PaypalButton({ total }) {
   const dispatch = useDispatch();
-  const { cart } = useSelector((state) => state.item);
+
   const auth = useAuth();
-  const { user } = auth;
+  const { user, cart } = auth;
 
   const onSuccess = (details) => {
     dispatch(payment({ details, user, cart }));
-    console.log(details, "data");
   };
+  console.log(total);
   return (
     <Box sx={{ width: "300px", height: "50px" }}>
       <PayPalScriptProvider
@@ -31,17 +30,6 @@ export default function Paypal({ toPay }) {
         }}
       >
         <PayPalButtons
-          createOrder={(data, actions) => {
-            return actions.order.create({
-              purchase_units: [
-                {
-                  amount: {
-                    value: `${toPay}`,
-                  },
-                },
-              ],
-            });
-          }}
           onApprove={function (data, actions) {
             return actions.order.capture().then(function (details) {
               // Your code here after capture the order
@@ -54,6 +42,18 @@ export default function Paypal({ toPay }) {
             console.log("The payment was canceled", data);
           }}
           style={style}
+          createOrder={(data, actions) => {
+            return actions.order.create({
+              purchase_units: [
+                {
+                  amount: {
+                    value: `${total}`,
+                    // value: "1000",
+                  },
+                },
+              ],
+            });
+          }}
         />
       </PayPalScriptProvider>
     </Box>

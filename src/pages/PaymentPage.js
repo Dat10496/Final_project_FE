@@ -1,14 +1,16 @@
 import { Box, Container, Divider, Typography } from "@mui/material";
 import { React, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import Cart from "../components/Cart";
-import Paypal from "../components/Paypal";
+import PaypalButton from "../components/PaypalButton";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
-import Link from "@mui/material/Link";
+import { Link } from "@mui/material";
+import useAuth from "../hooks/useAuth";
 
 function PaymentPage() {
-  const { cart } = useSelector((state) => state.item);
   const [total, setTotal] = useState(0);
+  const auth = useAuth();
+
+  const { cart } = auth;
 
   useEffect(() => {
     const getTotal = () => {
@@ -17,12 +19,14 @@ function PaymentPage() {
         return prev + currentValue;
       }, 0);
 
-      setTotal(total);
+      setTimeout(() => {
+        setTotal(total);
+      }, 1500);
     };
-
     getTotal();
   }, [cart]);
 
+  if (cart.length === 0) return <Typography>Empty Cart</Typography>;
   return (
     <>
       <Breadcrumbs aria-label="breadcrumb">
@@ -63,7 +67,7 @@ function PaymentPage() {
           <Divider mb={1} />
           {/* Paypal Button */}
           <Box mt={2}>
-            <Paypal toPay={total} />
+            <PaypalButton total={total} />
           </Box>
         </Box>
       </Container>

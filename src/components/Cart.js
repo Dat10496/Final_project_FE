@@ -7,26 +7,33 @@ import {
   Select,
   Typography,
 } from "@mui/material";
-import { React, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  handleQtyOfItem,
-  removeItemFromCart,
-} from "../features/item/itemSlice";
+import { React } from "react";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import useAuth from "../hooks/useAuth";
 
-const QTY_ITEMS = ["1", "2", "3", "4", "5"];
+const QTY_ITEMS = [1, 2, 3, 4, 5];
 
 function Cart({ cart }) {
-  const dispatch = useDispatch();
+  const auth = useAuth();
+  const { addCart, user } = auth;
+  const userId = user._id;
 
-  const handleRemoveItem = (item) => {
-    const index = cart.indexOf(item);
-    dispatch(removeItemFromCart({ item, index }));
+  const handleRemoveItem = (product) => {
+    const index = cart.indexOf(product);
+    cart.splice(index, 1);
+
+    addCart({ cart, userId });
   };
 
   const handleQuantity = (product, quantity) => {
-    dispatch(handleQtyOfItem({ product, quantity }));
+    cart.forEach((item) => {
+      console.log(item.product._id);
+      if (item.product._id === product.product._id) {
+        item.quantity = quantity;
+      }
+    });
+
+    addCart({ cart, userId });
   };
 
   return (
@@ -47,14 +54,16 @@ function Cart({ cart }) {
               <Box sx={{ minHeight: "20vh", width: "600px", ml: 3 }}>
                 <Typography> {product.product.brand}</Typography>
                 <Typography> {product.product.details}</Typography>
+
                 <Box sx={{ display: "flex", alignItems: "center" }}>
                   <Typography>Quantity</Typography>
                   <FormControl variant="standard" sx={{ m: 1, minWidth: 30 }}>
-                    <Select defaultValue={1}>
+                    <Select value={product.quantity}>
                       {QTY_ITEMS.map((quantity) => (
                         <MenuItem
                           onClick={() => handleQuantity(product, quantity)}
                           value={quantity}
+                          key={quantity.toString()}
                         >
                           {quantity}
                         </MenuItem>
@@ -62,14 +71,15 @@ function Cart({ cart }) {
                     </Select>
                   </FormControl>
                 </Box>
+
                 <Button sx={{ color: "black", ml: -2 }}>
                   <DeleteOutlineIcon
                     onClick={() => handleRemoveItem(product)}
                   />
                 </Button>
               </Box>
+
               <Typography>
-                {" "}
                 {product.product.price * product.quantity} $
               </Typography>
             </Box>
