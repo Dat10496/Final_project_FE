@@ -6,6 +6,7 @@ const initialState = {
   error: null,
   items: [],
   itemDetail: {},
+  totalPages: {},
 };
 
 const ITEM_PER_PAGE = 12;
@@ -35,12 +36,6 @@ const slice = createSlice({
       state.hasError = null;
       state.itemDetail = action.payload;
     },
-
-    paymentSuccess(state, action) {
-      state.isLoading = false;
-      state.hasError = null;
-      state.cart = [];
-    },
   },
 });
 
@@ -69,21 +64,6 @@ export const getItemDetail =
     try {
       const response = await apiService.get(`/items/${itemId}`);
       dispatch(slice.actions.getItemDetailSuccess(response.data.data));
-    } catch (error) {
-      dispatch(slice.actions.hasError(error.message));
-    }
-  };
-
-export const payment =
-  ({ details, user, cart }) =>
-  async (dispatch) => {
-    dispatch(slice.actions.startLoading());
-    console.log(details, user);
-    try {
-      let body = { details, user, cart };
-      const response = await apiService.post("/payment", body);
-      console.log(response);
-      dispatch(slice.actions.paymentSuccess());
     } catch (error) {
       dispatch(slice.actions.hasError(error.message));
     }

@@ -21,8 +21,7 @@ function DetailPage() {
   const dispatch = useDispatch();
   const auth = useAuth();
 
-  const userId = auth.user._id;
-  const { addCart, cart } = auth;
+  const { addCart, user, cart } = auth;
 
   const { isLoading, itemDetail } = useSelector((state) => state.item);
 
@@ -31,6 +30,10 @@ function DetailPage() {
   }, [dispatch, itemId]);
 
   const handleAddToCart = (itemDetail) => {
+    if (!user) {
+      alert("Login please");
+    }
+
     const product = itemDetail;
 
     const check = cart.every((item) => {
@@ -38,6 +41,7 @@ function DetailPage() {
     });
 
     if (check) {
+      const userId = user._id;
       cart.push({ product, quantity: 1 });
 
       addCart({ cart, userId });

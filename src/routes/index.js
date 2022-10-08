@@ -15,7 +15,6 @@ function Router() {
     <Routes>
       <Route element={<MainLayout />}>
         <Route index element={<HomePage />} />
-        <Route path="/collections/:brand" element={<HomePage />} />
         <Route path="/items/:id" element={<DetailPage />} />
       </Route>
       <Route

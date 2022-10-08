@@ -38,7 +38,10 @@ export default function SortBy() {
       <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
         <Box>
           {SORT_BY_ITEM.map((option) => (
-            <MenuItem onClick={() => handleClose(option.value)}>
+            <MenuItem
+              key={option.value}
+              onClick={() => handleClose(option.value)}
+            >
               {option.label}
             </MenuItem>
           ))}

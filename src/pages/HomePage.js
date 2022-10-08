@@ -1,4 +1,4 @@
-import { Box, Container, Grid, Pagination, Stack } from "@mui/material";
+import { Box, Button, Container, Grid, Pagination, Stack } from "@mui/material";
 import { React, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ItemCard from "../features/item/ItemCard";
@@ -11,17 +11,21 @@ import { useParams } from "react-router-dom";
 
 function HomePage() {
   const [page, setPage] = useState(1);
+  const [controlPage, setControlPage] = useState(false);
   const { isLoading, items, totalPages } = useSelector((state) => state.item);
   const dispatch = useDispatch();
-  const params = useParams();
-  const { brand } = params;
-  const handleChangePage = (e, value) => {
-    setPage(value);
+
+  const handleChangePage = () => {
+    if (page === totalPages) {
+      setControlPage(true);
+    } else {
+      setPage(page + 1);
+    }
   };
 
   useEffect(() => {
-    dispatch(getItems({ page, brand }));
-  }, [page, dispatch, brand]);
+    dispatch(getItems({ page }));
+  }, [page, dispatch]);
 
   return (
     <>
@@ -63,12 +67,14 @@ function HomePage() {
         }}
         spacing={1}
       >
-        <Pagination
-          count={totalPages}
-          siblingCount={0}
-          page={page}
-          onChange={handleChangePage}
-        />
+        <Button
+          sx={{ color: "inherit" }}
+          disabled={controlPage}
+          onClick={handleChangePage}
+          variant="outlined"
+        >
+          Load more
+        </Button>
       </Stack>
     </>
   );

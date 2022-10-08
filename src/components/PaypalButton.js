@@ -1,8 +1,7 @@
 import { Box } from "@mui/material";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
-import { useDispatch } from "react-redux";
-import { payment } from "../features/item/itemSlice";
 import useAuth from "../hooks/useAuth";
+import { useEffect } from "react";
 
 const style = {
   layout: "vertical",
@@ -12,14 +11,19 @@ const style = {
 };
 
 export default function PaypalButton({ total }) {
-  const dispatch = useDispatch();
-
   const auth = useAuth();
-  const { user, cart } = auth;
+  const { user, cart, paymentSuccess, addCart } = auth;
+  const userId = user._id;
 
   const onSuccess = (details) => {
-    dispatch(payment({ details, user, cart }));
+    paymentSuccess({ details, user, cart });
+
+    cart.length = 0;
+    addCart({ cart, userId });
   };
+
+  useEffect(() => {}, [cart, user]);
+
   console.log(total);
   return (
     <Box sx={{ width: "300px", height: "50px" }}>

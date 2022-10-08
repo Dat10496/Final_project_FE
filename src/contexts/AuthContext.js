@@ -6,7 +6,7 @@ const initialState = {
   isInitialized: false,
   isAuthenticated: false,
   cart: [],
-  user: {},
+  user: null,
 };
 
 const INITIALIZE = "AUTH.INITIALIZE";
@@ -14,6 +14,7 @@ const lOGIN_SUCCESS = "AUTH.LOGIN_SUCCESS";
 const REGISTER_SUCCESS = "AUTH.REGISTER_SUCCESS";
 const LOGOUT = "AUTH.LOGOUT";
 const ADDTOCART = "AUTH.ADDTOCART";
+const PAYMENTSUCCESS = "AUTH.PAYMENTSUCCESS";
 
 const AuthContext = createContext({ ...initialState });
 
@@ -46,7 +47,7 @@ const reducer = (state, action) => {
       return {
         ...state,
         isAuthenticated: false,
-        user: {},
+        user: null,
         cart: [],
       };
     case ADDTOCART:
@@ -54,6 +55,12 @@ const reducer = (state, action) => {
         ...state,
         cart: action.payload.user.cart,
       };
+    case PAYMENTSUCCESS: {
+      return {
+        ...state,
+        cart: [],
+      };
+    }
 
     default:
       return state;
@@ -93,7 +100,7 @@ function AuthProvider({ children }) {
 
           dispatch({
             type: INITIALIZE,
-            payload: { isAuthenticated: false, user: {}, cart: [] },
+            payload: { isAuthenticated: false, user: null, cart: [] },
           });
         }
       } catch (error) {
@@ -101,7 +108,7 @@ function AuthProvider({ children }) {
 
         dispatch({
           type: INITIALIZE,
-          payload: { isAuthenticated: false, user: {}, cart: [] },
+          payload: { isAuthenticated: false, user: null, cart: [] },
         });
       }
     };
@@ -138,9 +145,11 @@ function AuthProvider({ children }) {
 
   const logout = (callback) => {
     setSession(null);
+
     dispatch({
       type: LOGOUT,
     });
+
     callback();
   };
 
@@ -159,9 +168,20 @@ function AuthProvider({ children }) {
     }
   };
 
+  const paymentSuccess = async ({ details, user, cart }) => {
+    try {
+      await apiService.post("/payment", { details, user, cart });
+
+      dispatch({
+        type: PAYMENTSUCCESS,
+      });
+    } catch (error) {
+      console.log(error, "Payment error");
+    }
+  };
   return (
     <AuthContext.Provider
-      value={{ ...state, login, register, logout, addCart }}
+      value={{ ...state, login, register, logout, addCart, paymentSuccess }}
     >
       {children}
     </AuthContext.Provider>

@@ -10,31 +10,32 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import Logo from "../components/Logo";
+import AccountCircle from "@mui/icons-material/AccountCircle";
 import ShoppingCartRoundedIcon from "@mui/icons-material/ShoppingCartRounded";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
-import { Badge } from "@mui/material";
+import { Badge, Divider } from "@mui/material";
 import useAuth from "../hooks/useAuth";
-import { useEffect } from "react";
-
-const brands = ["Reebok", "Campus", "Adidas", "Puma", "Sparx"];
 
 const MainHeader = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
-
   const navigate = useNavigate();
+
   const auth = useAuth();
-  const { user, cart } = auth;
+  const { user, cart, logout } = auth;
 
   const handleOpenNavMenu = (event, value) => {
     setAnchorElNav(event.currentTarget);
   };
 
-  const handleCloseNavMenu = (brand) => {
-    navigate(`/collections/${brand}`);
+  const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
 
-  useEffect(() => {}, [cart]);
+  const handleLogOut = () => {
+    setAnchorElNav(null);
+
+    logout(() => navigate("/", { replace: true }));
+  };
 
   return (
     <AppBar position="static">
@@ -60,46 +61,7 @@ const MainHeader = () => {
             Sneaker
           </Typography>
 
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-              open={Boolean(anchorElNav)}
-              sx={{
-                display: { xs: "block", md: "none" },
-              }}
-            >
-              {brands.map((brand) => (
-                <MenuItem key={brand}>
-                  <Typography
-                    onClick={() => handleCloseNavMenu(brand)}
-                    textAlign="center"
-                  >
-                    {brand}
-                  </Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
+          <Box sx={{ flexGrow: 1, display: "flex" }} />
 
           <Typography
             variant="h5"
@@ -119,19 +81,57 @@ const MainHeader = () => {
           >
             Sneaker
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {brands.map((brand) => (
-              <Button
-                key={brand}
-                onClick={() => handleCloseNavMenu(brand)}
-                sx={{ my: 2, color: "white", display: "block" }}
+          {user ? (
+            <>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleOpenNavMenu}
+                color="inherit"
               >
-                {brand}
-              </Button>
-            ))}
-          </Box>
+                <AccountCircle />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorElNav}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={Boolean(anchorElNav)}
+                onClose={handleCloseNavMenu}
+              >
+                <Typography m={1}>Welcome {user.name}</Typography>
+                <Divider variant="middle" />
+                <MenuItem
+                  sx={{ justifyContent: "center" }}
+                  onClick={handleLogOut}
+                >
+                  Log out
+                </MenuItem>
+              </Menu>
+            </>
+          ) : (
+            <IconButton
+              size="large"
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              color="inherit"
+              component={RouterLink}
+              to="/login"
+            >
+              <AccountCircle />
+            </IconButton>
+          )}
 
-          <p>{user ? user.name : ""}</p>
           <Box sx={{ flexGrow: 0, color: "white" }}>
             <Badge
               component={RouterLink}

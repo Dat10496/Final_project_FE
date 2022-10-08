@@ -19,12 +19,10 @@ function PaymentPage() {
         return prev + currentValue;
       }, 0);
 
-      setTimeout(() => {
-        setTotal(total);
-      }, 1500);
+      setTotal(total);
     };
     getTotal();
-  }, [cart]);
+  }, [cart, total]);
 
   if (cart.length === 0) return <Typography>Empty Cart</Typography>;
   return (
