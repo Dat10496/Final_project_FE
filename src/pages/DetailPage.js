@@ -1,10 +1,14 @@
 import {
+  Box,
+  Breadcrumbs,
   Button,
   Card,
   CardActions,
   CardContent,
   CardMedia,
   Container,
+  Divider,
+  Link,
   Rating,
   Typography,
 } from "@mui/material";
@@ -14,6 +18,8 @@ import { useParams } from "react-router-dom";
 import LoadingScreen from "../components/LoadingScreen";
 import { getItemDetail } from "../features/item/itemSlice";
 import useAuth from "../hooks/useAuth";
+import { DOMAIN_URL } from "../app/config";
+import ImgSold from "../images/sold.png";
 
 function DetailPage() {
   const params = useParams();
@@ -24,10 +30,6 @@ function DetailPage() {
   const { addCart, user, cart } = auth;
 
   const { isLoading, itemDetail } = useSelector((state) => state.item);
-
-  useEffect(() => {
-    dispatch(getItemDetail({ itemId }));
-  }, [dispatch, itemId]);
 
   const handleAddToCart = (itemDetail) => {
     if (!user) {
@@ -50,56 +52,87 @@ function DetailPage() {
     }
   };
 
+  useEffect(() => {
+    dispatch(getItemDetail({ itemId }));
+  }, [dispatch, itemId]);
+
   return (
     <>
       {isLoading ? (
         <LoadingScreen />
       ) : (
-        <Container
-          sx={{
-            display: "flex",
-            mt: 3,
-            minHeight: "100vh",
-            minWidth: "100vh",
-            justifyContent: "space-evenly",
-          }}
-        >
-          <Card sx={{ maxHeight: 350, maxWidth: 350 }} name="media">
-            <CardMedia
-              component="img"
-              height="350"
-              width="350"
-              image={itemDetail.image}
-              alt={itemDetail.brand}
-            />
-          </Card>
-          <Card sx={{ maxHeight: 350, maxWidth: 350 }} name="content">
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
+        <>
+          <Breadcrumbs m={1.5} separator="›" aria-label="breadcrumb">
+            <Link underline="hover" color="inherit" href="/">
+              SNEAKER STORE
+            </Link>
+            <Typography color="text.primary">{itemDetail.brand}</Typography>
+          </Breadcrumbs>
+          <Container
+            sx={{
+              display: "flex",
+              mt: 3,
+              minHeight: "100vh",
+              minWidth: "100vh",
+              justifyContent: "space-between",
+            }}
+          >
+            <Box sx={{ height: 500, width: 500 }}>
+              <Card sx={{ maxWidth: 500, maxHeight: 500 }} name="media">
+                <CardMedia
+                  component="img"
+                  height="450"
+                  width="450"
+                  image={`${DOMAIN_URL}${itemDetail.image}`}
+                  alt={itemDetail.brand}
+                />
+              </Card>
+            </Box>
+
+            <Box sx={{ width: 500, height: 500, p: 1, mr: 5 }}>
+              <Typography gutterBottom variant="h3" component="div">
                 {itemDetail.brand}
               </Typography>
-              <Typography variant="body2" color="text.secondary">
-                {itemDetail.details}
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
+              <Rating value={itemDetail.rating} precision={0.1} readOnly />
+              <Typography variant="h6" color="text">
                 $ {itemDetail.price}
               </Typography>
-              <Typography variant="body2" color="text.secondary">
-                TotalLeft {itemDetail.quantity}
+              <Divider sx={{ mb: 2 }} light />
+
+              <Typography variant="body1" color="text">
+                {itemDetail.details}
               </Typography>
-              <Typography variant="body2" color="text.secondary">
-                TotalSoldOut {itemDetail.totalSold}
-              </Typography>
-              <Typography>Review</Typography>
-              <Rating value={itemDetail.rating} precision={0.1} readOnly />
-            </CardContent>
-            <CardActions>
-              <Button onClick={() => handleAddToCart(itemDetail)} size="small">
+
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  mt: 1,
+                }}
+              >
+                <Box sx={{ height: 40, width: 40 }}>
+                  <img src={ImgSold} alt="soldImage" width="100%" />
+                </Box>
+                <Typography variant="h6" color="text.secondary">
+                  {itemDetail.totalSold}
+                </Typography>
+                <Typography sx={{ ml: 1 }} variant="subtitle1" color="#cc571f">
+                  Product Sold
+                </Typography>
+              </Box>
+
+              <Button
+                sx={{ mt: 2 }}
+                variant="contained"
+                color="success"
+                onClick={() => handleAddToCart(itemDetail)}
+                size="large"
+              >
                 Add to Cart
               </Button>
-            </CardActions>
-          </Card>
-        </Container>
+            </Box>
+          </Container>
+        </>
       )}
     </>
   );

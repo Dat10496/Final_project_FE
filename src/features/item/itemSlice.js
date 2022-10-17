@@ -46,10 +46,6 @@ export const getItems =
     try {
       let params = { page, limit, brand, rating, price, value };
 
-      if (brand) params.brand = brand;
-      if (price) params.price = price;
-      if (rating) params.rating = rating;
-
       const response = await apiService.get("/items", { params });
       dispatch(slice.actions.getItemSuccess(response.data.data));
     } catch (error) {

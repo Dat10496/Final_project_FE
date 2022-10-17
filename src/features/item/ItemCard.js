@@ -1,6 +1,14 @@
-import { Card, CardContent, CardMedia, Typography } from "@mui/material";
+import {
+  Box,
+  Card,
+  CardContent,
+  CardMedia,
+  Rating,
+  Typography,
+} from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { DOMAIN_URL } from "../../app/config";
 
 function ItemCard({ item }) {
   const itemId = item._id;
@@ -8,29 +16,34 @@ function ItemCard({ item }) {
   const navigate = useNavigate();
 
   return (
-    <Card
-      onClick={() => navigate(`/items/${itemId}`)}
-      sx={{ maxWidth: 250, maxHeight: 350, p: 0.5 }}
-    >
-      <CardMedia
-        sx={{ borderRadius: 1.2 }}
-        component="img"
-        height="180"
-        src={item.image}
-        alt={item.brand}
-      />
+    <>
+      <Box
+        onClick={() => navigate(`/items/${itemId}`)}
+        sx={{ maxWidth: 220, maxHeight: 250 }}
+      >
+        <CardMedia
+          sx={{ borderRadius: 1.2 }}
+          component="img"
+          height="220"
+          width="100%"
+          src={`${DOMAIN_URL}${item.image}`}
+          alt={item.brand}
+        />
+      </Box>
+
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
+        <Typography fontStyle="bold" gutterBottom variant="h5" component="div">
           {item.brand}
         </Typography>
-        <Typography variant="body2" color="text.secondary">
+        <Rating size="small" value={item.rating} precision={0.1} readOnly />
+        <Typography variant="body2" color="text.secondary" gutterBottom noWrap>
           {item.details}
         </Typography>
-        <Typography variant="subtitle2" color="palette.primary.lighter">
-          {`$${item.price}`}
+        <Typography variant="h6" color="#e57373">
+          {item.price} $
         </Typography>
       </CardContent>
-    </Card>
+    </>
   );
 }
 

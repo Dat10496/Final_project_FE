@@ -108,7 +108,7 @@ const MainHeader = () => {
                 open={Boolean(anchorElNav)}
                 onClose={handleCloseNavMenu}
               >
-                <Typography m={1}>Welcome {user.name}</Typography>
+                <Typography m={1}>Hi, {user.name} !</Typography>
                 <Divider variant="middle" />
                 <MenuItem
                   sx={{ justifyContent: "center" }}

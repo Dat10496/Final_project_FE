@@ -5,6 +5,7 @@ import {
   Radio,
   RadioGroup,
   Stack,
+  Box,
   Typography,
 } from "@mui/material";
 import { React, useState } from "react";
@@ -66,78 +67,92 @@ function ProductFilter({ page }) {
   const resetFilter = () => {
     setSortByRating();
     setSortByPrice();
+    setSortByBrand();
     window.location.reload();
   };
 
   return (
     <>
-      <Stack m={1} spacing={2}>
-        <Stack>
-          <Typography>Brand ({sortByBrand.brand})</Typography>
-          {FILTER_BY_BRAND.map((option) => (
-            <Typography
-              onClick={() => handleSelectBrand(option)}
-              key={option.value}
-              component={Button}
-              variant="caption "
-              color="black"
-              size="small"
-            >
-              {option.label}
-            </Typography>
-          ))}
-        </Stack>
-        <Divider variant="middle" />
-        <Stack>
-          <Typography>Price</Typography>
-          <RadioGroup name="PriceRange">
-            {FILTER_BY_PRICE.map((option) => (
-              <FormControlLabel
-                onClick={() => handleSelectPrice(option)}
+      <Box width={200}>
+        <Stack m={1} spacing={2}>
+          <Stack>
+            <Typography variant="h6">Brand ({sortByBrand.brand})</Typography>
+            {FILTER_BY_BRAND.map((option) => (
+              <Typography
+                onClick={() => handleSelectBrand(option)}
                 key={option.value}
-                value={option.value}
-                control={<Radio />}
-                label={option.label}
-              />
+                component={Button}
+                variant="BUTTON"
+                color="black"
+                size="small"
+              >
+                {option.label}
+              </Typography>
             ))}
-          </RadioGroup>
+          </Stack>
+          <Divider variant="middle" />
+
+          <Stack>
+            <Typography variant="h6">Price</Typography>
+            <RadioGroup name="PriceRange">
+              {FILTER_BY_PRICE.map((option) => (
+                <FormControlLabel
+                  onClick={() => handleSelectPrice(option)}
+                  key={option.value}
+                  value={option.value}
+                  control={<Radio />}
+                  label={option.label}
+                />
+              ))}
+            </RadioGroup>
+          </Stack>
+          <Divider variant="middle" />
+
+          <Stack>
+            <Typography variant="h6">Rating</Typography>
+            <RadioGroup name="RatingRange">
+              {FILTER_BY_RATING.map((option) => (
+                <FormControlLabel
+                  onClick={() => handleSelectRating(option)}
+                  key={option.value}
+                  value={option.value}
+                  control={<Radio />}
+                  label={
+                    <Stack flexDirection="row" alignContent="center">
+                      {option.label}
+                      <StarOutlineIcon />
+                    </Stack>
+                  }
+                />
+              ))}
+            </RadioGroup>
+          </Stack>
         </Stack>
-        <Divider variant="middle" />
+
+        <Stack mb={2}>
+          <Button
+            sx={{ color: "#607d8b" }}
+            startIcon={<SortIcon />}
+            onClick={handleSortOption}
+          >
+            Filter
+          </Button>
+        </Stack>
+
         <Stack>
-          <Typography>Rating</Typography>
-          <RadioGroup name="RatingRange">
-            {FILTER_BY_RATING.map((option) => (
-              <FormControlLabel
-                onClick={() => handleSelectRating(option)}
-                key={option.value}
-                value={option.value}
-                control={<Radio />}
-                label={
-                  <Stack flexDirection="row" alignContent="center">
-                    {option.label}
-                    <StarOutlineIcon />
-                  </Stack>
-                }
-              />
-            ))}
-          </RadioGroup>
+          <Button
+            // sx={{ color: "#d84315" }}
+            size="large"
+            type="reset"
+            color="inherit"
+            variant="outlined"
+            onClick={resetFilter}
+            startIcon={<ClearAllIcon />}
+          >
+            Clear All
+          </Button>
         </Stack>
-      </Stack>
-      <Stack>
-        <Button startIcon={<SortIcon />} onClick={handleSortOption}>
-          Filter
-        </Button>
-      </Stack>
-      <Button
-        size="large"
-        type="reset"
-        color="inherit"
-        variant="outlined"
-        onClick={resetFilter}
-        startIcon={<ClearAllIcon />}
-      >
-        Clear All
-      </Button>
+      </Box>
     </>
   );
 }

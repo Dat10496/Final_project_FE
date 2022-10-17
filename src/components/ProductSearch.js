@@ -21,11 +21,13 @@ export default function ProductSearch() {
 
   return (
     <Box
+      color="#212121"
       component="form"
       noValidate
       autoComplete="off"
       sx={{ borderRadius: 20 }}
       mt={2}
+      mr={3}
     >
       <TextField
         onChange={handleChange}

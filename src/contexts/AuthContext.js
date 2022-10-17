@@ -153,9 +153,9 @@ function AuthProvider({ children }) {
     callback();
   };
 
-  const addCart = async ({ cart, userId }) => {
+  const addCart = async ({ cart }) => {
     try {
-      const response = await apiService.put(`/users/addcart/${userId}`, {
+      const response = await apiService.patch("/users/addcart", {
         cart,
       });
       const { user } = response.data.data;

@@ -1,5 +1,5 @@
 import { Box, Container, Divider, Typography } from "@mui/material";
-import { React, useEffect, useState } from "react";
+import { React, useEffect, useState, memo } from "react";
 import Cart from "../components/Cart";
 import PaypalButton from "../components/PaypalButton";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
@@ -13,21 +13,38 @@ function PaymentPage() {
   const { cart } = auth;
 
   useEffect(() => {
-    const getTotal = () => {
-      const total = cart.reduce((prev, item) => {
-        const currentValue = item.product.price * item.quantity;
+    if (cart.length === 1) {
+      setTotal((cart[0]?.product?.price * cart[0]?.quantity)?.toString());
+    } else {
+      const paypalValue = cart.reduce((prev, item) => {
+        const currentValue = item?.product?.price * item?.quantity;
         return prev + currentValue;
       }, 0);
 
-      setTotal(total);
-    };
-    getTotal();
-  }, [cart, total]);
+      setTotal(paypalValue.toString());
+    }
+  }, [cart]);
 
-  if (cart.length === 0) return <Typography>Empty Cart</Typography>;
+  if (cart.length === 0)
+    return (
+      <>
+        <Container
+          sx={{
+            display: "flex",
+            minWidth: "100vh",
+            height: "80vh",
+            mt: 2,
+            justifyContent: "space-evenly",
+          }}
+        >
+          <Typography variant="h4">Empty Cart</Typography>
+        </Container>
+      </>
+    );
+
   return (
     <>
-      <Breadcrumbs aria-label="breadcrumb">
+      <Breadcrumbs m={1.5} separator="›" aria-label="breadcrumb">
         <Link underline="hover" color="inherit" href="/">
           SNEAKER STORE
         </Link>
@@ -42,7 +59,10 @@ function PaymentPage() {
           justifyContent: "space-evenly",
         }}
       >
-        <Cart cart={cart} />
+        <Box display="flex" flexDirection="column">
+          <Cart cart={cart} />
+        </Box>
+
         <Box
           sx={{
             width: "300px",
@@ -63,9 +83,10 @@ function PaymentPage() {
             <Typography variant="subtitle2"> {total}$</Typography>
           </Box>
           <Divider mb={1} />
+
           {/* Paypal Button */}
           <Box mt={2}>
-            <PaypalButton total={total} />
+            <PaypalButton value={total} auth={auth} />
           </Box>
         </Box>
       </Container>
@@ -73,4 +94,4 @@ function PaymentPage() {
   );
 }
 
-export default PaymentPage;
+export default memo(PaymentPage);

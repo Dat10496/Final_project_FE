@@ -1,7 +1,5 @@
 import { Box } from "@mui/material";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
-import useAuth from "../hooks/useAuth";
-import { useEffect } from "react";
 
 const style = {
   layout: "vertical",
@@ -10,8 +8,7 @@ const style = {
   color: "blue",
 };
 
-export default function PaypalButton({ total }) {
-  const auth = useAuth();
+export default function PaypalButton({ value, auth }) {
   const { user, cart, paymentSuccess, addCart } = auth;
   const userId = user._id;
 
@@ -22,9 +19,6 @@ export default function PaypalButton({ total }) {
     addCart({ cart, userId });
   };
 
-  useEffect(() => {}, [cart, user]);
-
-  console.log(total);
   return (
     <Box sx={{ width: "300px", height: "50px" }}>
       <PayPalScriptProvider
@@ -51,7 +45,7 @@ export default function PaypalButton({ total }) {
               purchase_units: [
                 {
                   amount: {
-                    value: `${total}`,
+                    value: value,
                     // value: "1000",
                   },
                 },

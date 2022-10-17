@@ -22,7 +22,6 @@ export default function SortBy() {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = (value) => {
-    console.log(value);
     setAnchorEl(null);
     dispatch(getItems({ value }));
   };
@@ -30,6 +29,8 @@ export default function SortBy() {
   return (
     <>
       <Button
+        sx={{ color: "#212121" }}
+        p={0}
         onClick={handleClick}
         endIcon={anchorEl ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
       >
