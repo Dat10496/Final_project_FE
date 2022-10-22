@@ -41,13 +41,13 @@ const styles = {
 
 function MainFooter() {
   return (
-    <Box maxWidth="xl">
+    <Box sx={{ maxWidth: { xs: 400, md: "xl" } }} mt={2}>
       <Box className="saleImage">
         <Box sx={{ p: 3 }} style={styles.paperStyle}>
           <Box
             sx={{
               position: "relative",
-              right: "15%",
+              right: { xs: "", sm: "15%" },
               display: "flex",
               justifyContent: "center",
               flexDirection: "column",
@@ -65,7 +65,7 @@ function MainFooter() {
           <Box
             sx={{
               position: "relative",
-              right: "15%",
+              right: { xs: "", sm: "15%" },
               display: "flex",
               justifyContent: "center",
             }}
@@ -87,9 +87,9 @@ function MainFooter() {
       <Box
         name="contact"
         sx={{
-          height: 180,
+          height: { xs: 350, md: 180 },
           backgroundColor: "#f5f5f5",
-          display: "flex",
+          display: { xs: "", sm: "flex" },
           justifyContent: "space-evenly",
           p: 1,
         }}
@@ -145,10 +145,9 @@ function MainFooter() {
 
       <Box
         sx={{
-          height: 50,
-          width: "fullWidth",
+          height: { xs: 280, md: 50 },
           backgroundColor: "primary.darker",
-          display: "flex",
+          display: { xs: "", md: "flex" },
           justifyContent: "space-evenly",
         }}
         name="footer"

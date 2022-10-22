@@ -33,17 +33,21 @@ function Cart({ cart }) {
     });
 
     addCart({ cart });
-
-    window.location.reload();
   };
 
   return (
     <>
       {cart.map((product) => (
-        <Box key={product.product._id}>
+        <Box component="div" key={product.product._id}>
           <Box
-            sx={{ display: "flex", alignItems: "center", p: 1 }}
-            key={product.product._id}
+            sx={{
+              display: { xs: "", md: "flex" },
+              width: 600,
+              alignItems: "center",
+              p: 1,
+              justifyContent: "space-between",
+              mt: 1,
+            }}
           >
             <Box
               component="img"
@@ -51,7 +55,12 @@ function Cart({ cart }) {
               width="120px"
               src={`${DOMAIN_URL}${product.product.image}`}
             />
-            <Box sx={{ minHeight: "20vh", width: "600px", ml: 3 }}>
+
+            <Box
+              sx={{
+                minHeight: "20vh",
+              }}
+            >
               <Typography variant="subtitle2">
                 {product.product.brand}
               </Typography>
@@ -72,16 +81,19 @@ function Cart({ cart }) {
                     ))}
                   </Select>
                 </FormControl>
+                <Button sx={{ color: "primary", ml: -2 }}>
+                  <DeleteOutlineIcon
+                    onClick={() => handleRemoveItem(product)}
+                  />
+                </Button>
               </Box>
-
-              <Button sx={{ color: "primary", ml: -2 }}>
-                <DeleteOutlineIcon onClick={() => handleRemoveItem(product)} />
-              </Button>
             </Box>
 
-            <Typography>
-              {product.product.price * product.quantity} $
-            </Typography>
+            <Box sx={{ mt: { xs: -4, md: "none" } }} component="div">
+              <Typography variant="subtitle2">
+                {product.product.price * product.quantity} $
+              </Typography>
+            </Box>
           </Box>
           <Divider variant="middle" />
         </Box>

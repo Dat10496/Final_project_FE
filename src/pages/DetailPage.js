@@ -3,8 +3,6 @@ import {
   Breadcrumbs,
   Button,
   Card,
-  CardActions,
-  CardContent,
   CardMedia,
   Container,
   Divider,
@@ -68,17 +66,24 @@ function DetailPage() {
             </Link>
             <Typography color="text.primary">{itemDetail.brand}</Typography>
           </Breadcrumbs>
+
           <Container
             sx={{
-              display: "flex",
+              display: { xs: "", sm: "flex" },
               mt: 3,
+              p: 1,
               minHeight: "100vh",
-              minWidth: "100vh",
               justifyContent: "space-between",
             }}
           >
             <Box sx={{ height: 500, width: 500 }}>
-              <Card sx={{ maxWidth: 500, maxHeight: 500 }} name="media">
+              <Card
+                sx={{
+                  maxWidth: { xs: 400, sm: 500 },
+                  maxHeight: { xs: 400, sm: 500 },
+                }}
+                name="media"
+              >
                 <CardMedia
                   component="img"
                   height="450"

@@ -1,11 +1,4 @@
-import {
-  Box,
-  Card,
-  CardContent,
-  CardMedia,
-  Rating,
-  Typography,
-} from "@mui/material";
+import { Box, CardContent, CardMedia, Rating, Typography } from "@mui/material";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { DOMAIN_URL } from "../../app/config";
@@ -19,7 +12,14 @@ function ItemCard({ item }) {
     <>
       <Box
         onClick={() => navigate(`/items/${itemId}`)}
-        sx={{ maxWidth: 220, maxHeight: 250 }}
+        sx={{
+          maxWidth: 220,
+          maxHeight: 250,
+          "&:hover": {
+            opacity: [0.9, 0.8, 0.7],
+            cursor: "pointer",
+          },
+        }}
       >
         <CardMedia
           sx={{ borderRadius: 1.2 }}

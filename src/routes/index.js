@@ -6,6 +6,7 @@ import DetailPage from "../pages/DetailPage";
 import HomePage from "../pages/HomePage";
 import LoginPage from "../pages/LoginPage";
 import PaymentPage from "../pages/PaymentPage";
+import HistoryPage from "../pages/HistoryPage";
 import RegisterPage from "../pages/RegisterPage";
 import AuthRequire from "./AuthRequire";
 
@@ -24,6 +25,7 @@ function Router() {
         }
       >
         <Route path="/payment" element={<PaymentPage />} />
+        <Route path="/history/:id" element={<HistoryPage />} />
       </Route>
       <Route element={<BlankLayout />}>
         <Route path="/login" element={<LoginPage />} />

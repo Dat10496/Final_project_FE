@@ -60,20 +60,20 @@ function HomePage() {
             <Typography color="#212121">Home</Typography>
           </Breadcrumbs>
 
-          <Box sx={{ display: "flex", justifyContent: "flex-end", mr: 3 }}>
+          <Box
+            sx={{
+              display: { xs: "", md: "flex" },
+              justifyContent: "flex-end",
+              mr: 3,
+            }}
+          >
             <ProductSearch />
             <SortBy />
           </Box>
         </Box>
 
-        <Container
-          sx={{
-            display: "flex",
-            minHeight: "100vh",
-            mt: 2,
-          }}
-        >
-          <Stack sx={{ mr: 4, mt: 2 }}>
+        <Stack direction={{ xs: "column", sm: "row" }}>
+          <Stack sx={{ mr: 2, mt: 2 }}>
             <ProductFilter page={page} />
           </Stack>
 
@@ -85,7 +85,7 @@ function HomePage() {
                 <Box sx={{ flexGrow: 1, ml: 4 }}>
                   <Grid container spacing={2} mt={1}>
                     {items.map((item) => (
-                      <Grid key={item._id} item xs={6} md={4} lg={3}>
+                      <Grid key={item._id} item xs={12} md={4} lg={3}>
                         <ItemCard item={item} />
                       </Grid>
                     ))}
@@ -94,7 +94,7 @@ function HomePage() {
               </>
             )}
           </Stack>
-        </Container>
+        </Stack>
 
         <Stack
           sx={{

@@ -7,6 +7,8 @@ const initialState = {
   items: [],
   itemDetail: {},
   totalPages: {},
+  history: [],
+  paymentDetail: {},
 };
 
 const ITEM_PER_PAGE = 12;
@@ -36,6 +38,18 @@ const slice = createSlice({
       state.hasError = null;
       state.itemDetail = action.payload;
     },
+
+    getHistorySuccess(state, action) {
+      state.isLoading = false;
+      state.hasError = null;
+      state.history = action.payload;
+    },
+
+    getPaymentDetailSuccess(state, action) {
+      state.isLoading = false;
+      state.hasError = null;
+      state.paymentDetail = action.payload;
+    },
   },
 });
 
@@ -60,6 +74,28 @@ export const getItemDetail =
     try {
       const response = await apiService.get(`/items/${itemId}`);
       dispatch(slice.actions.getItemDetailSuccess(response.data.data));
+    } catch (error) {
+      dispatch(slice.actions.hasError(error.message));
+    }
+  };
+
+export const getHistory = () => async (dispatch) => {
+  dispatch(slice.actions.startLoading());
+  try {
+    const response = await apiService.get("users/history");
+    dispatch(slice.actions.getHistorySuccess(response.data.data));
+  } catch (error) {
+    dispatch(slice.actions.hasError(error.message));
+  }
+};
+
+export const getPaymentDetail =
+  ({ paymentId }) =>
+  async (dispatch) => {
+    dispatch(slice.actions.startLoading());
+    try {
+      const response = await apiService.get(`payment/${paymentId}`);
+      dispatch(slice.actions.getPaymentDetailSuccess(response.data.data));
     } catch (error) {
       dispatch(slice.actions.hasError(error.message));
     }
