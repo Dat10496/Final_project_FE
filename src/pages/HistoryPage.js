@@ -112,6 +112,7 @@ function HistoryPage() {
                   <Typography variant="subtitle1">
                     Shipping: {paymentDetail?.address?.country_code}
                   </Typography>
+                  <Typography variant="subtitle1">Method: Paypal</Typography>
                 </Box>
               </Stack>
 

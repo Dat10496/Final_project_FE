@@ -88,6 +88,7 @@ function AuthProvider({ children }) {
           setSession(accessToken);
 
           const response = await apiService.get("/users");
+
           const user = response.data.data;
           const cart = user.cart;
 
@@ -128,6 +129,21 @@ function AuthProvider({ children }) {
     });
 
     callback();
+  };
+
+  const loginWithGoogle = async ({ googleId }) => {
+    const response = await apiService.post("/auth/google/login/success/", {
+      googleId,
+    });
+
+    const { user, accessToken } = response.data.data;
+    const cart = user.cart;
+
+    setSession(accessToken);
+    dispatch({
+      type: lOGIN_SUCCESS,
+      payload: { user, cart },
+    });
   };
 
   const register = async ({ name, email, password }, callback) => {
@@ -181,7 +197,15 @@ function AuthProvider({ children }) {
   };
   return (
     <AuthContext.Provider
-      value={{ ...state, login, register, logout, addCart, paymentSuccess }}
+      value={{
+        ...state,
+        login,
+        register,
+        logout,
+        addCart,
+        paymentSuccess,
+        loginWithGoogle,
+      }}
     >
       {children}
     </AuthContext.Provider>

@@ -17,12 +17,22 @@ import { getItems } from "../features/item/itemSlice";
 import SortBy from "../components/SortBy";
 import ProductSearch from "../components/ProductSearch";
 import HomeIcon from "@mui/icons-material/Home";
+import useAuth from "../hooks/useAuth";
+import { useSearchParams } from "react-router-dom";
 
 function HomePage() {
+  const dispatch = useDispatch();
+  const auth = useAuth();
+
   const [page, setPage] = useState(1);
   const [controlPage, setControlPage] = useState(false);
+
+  const [searchParams] = useSearchParams();
+  const googleId = searchParams.get("googleId");
+
   const { isLoading, items, totalPages } = useSelector((state) => state.item);
-  const dispatch = useDispatch();
+
+  const { user, loginWithGoogle } = auth;
 
   const handleChangePage = () => {
     if (page === totalPages) {
@@ -35,6 +45,12 @@ function HomePage() {
   useEffect(() => {
     dispatch(getItems({ page }));
   }, [page, dispatch]);
+
+  useEffect(() => {
+    if (googleId) {
+      loginWithGoogle({ googleId });
+    }
+  }, []);
 
   return (
     <>

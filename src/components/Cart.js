@@ -59,6 +59,7 @@ function Cart({ cart }) {
             <Box
               sx={{
                 minHeight: "20vh",
+                width: 300,
               }}
             >
               <Typography variant="subtitle2">
@@ -81,7 +82,7 @@ function Cart({ cart }) {
                     ))}
                   </Select>
                 </FormControl>
-                <Button sx={{ color: "primary", ml: -2 }}>
+                <Button sx={{ color: "#e53935", ml: -2 }}>
                   <DeleteOutlineIcon
                     onClick={() => handleRemoveItem(product)}
                   />

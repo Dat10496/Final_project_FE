@@ -20,7 +20,7 @@ function PaymentHistory() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { history } = useSelector((state) => state.item);
-
+  console.log(history);
   useEffect(() => {
     dispatch(getHistory());
   }, [dispatch]);
@@ -55,22 +55,22 @@ function PaymentHistory() {
           </TableHead>
 
           <TableBody>
-            {history.map((oder) => (
+            {history.map((order) => (
               <TableRow
-                key={oder._id}
+                key={order._id}
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
                 <TableCell component="th" scope="row">
-                  PAID-{oder.data[0].id}
+                  PAID-{order.data.id}
                 </TableCell>
                 <TableCell align="right">
-                  {oder.data[0].create_time.slice(0, 10)}
+                  {order.data.create_time.slice(0, 10)}
                 </TableCell>
                 <TableCell align="right">
                   <Button
                     variant="outlined"
                     color="secondary"
-                    onClick={() => navigate(`/history/${oder._id}`)}
+                    onClick={() => navigate(`/history/${order._id}`)}
                   >
                     View
                   </Button>

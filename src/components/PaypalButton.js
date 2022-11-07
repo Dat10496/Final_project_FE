@@ -14,6 +14,7 @@ export default function PaypalButton({ value, auth }) {
   const userId = user._id;
 
   const onSuccess = (details) => {
+    console.log(details);
     paymentSuccess({ details, cart });
 
     cart.length = 0;

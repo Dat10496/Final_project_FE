@@ -13,9 +13,11 @@ import {
   Link,
   InputAdornment,
   IconButton,
+  Button,
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
+import googleImg from "../images/ggleImg.png";
 
 const loginSchema = yup.object().shape({
   email: yup.string().email("Invalid email").required("Email is required"),
@@ -34,6 +36,7 @@ function LogInPage() {
     resolver: yupResolver(loginSchema),
     defaultValues,
   });
+
   const {
     handleSubmit,
     reset,
@@ -116,6 +119,32 @@ function LogInPage() {
           >
             Log In
           </LoadingButton>
+          <Button
+            mt={2}
+            href="http://localhost:5000/v1/auth/google"
+            component={Link}
+            fullWidth
+            size="large"
+            variant="outlined"
+          >
+            <Box
+              sx={{
+                mr: 2,
+                alignContent: "center",
+                display: "flex",
+                justifyContent: "center",
+              }}
+              component="div"
+            >
+              <img
+                height="25px"
+                width="25px"
+                src={googleImg}
+                alt="googleButton"
+              />
+            </Box>
+            Login With Google
+          </Button>
         </Stack>
       </FormProvider>
     </Container>

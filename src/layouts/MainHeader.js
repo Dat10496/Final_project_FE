@@ -11,7 +11,7 @@ import Logo from "../components/Logo";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import ShoppingCartRoundedIcon from "@mui/icons-material/ShoppingCartRounded";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
-import { Badge, Divider } from "@mui/material";
+import { Badge, Divider, Tooltip } from "@mui/material";
 import useAuth from "../hooks/useAuth";
 
 const MainHeader = () => {
@@ -81,16 +81,18 @@ const MainHeader = () => {
           </Typography>
           {user ? (
             <>
-              <IconButton
-                size="large"
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleOpenNavMenu}
-                color="inherit"
-              >
-                <AccountCircle />
-              </IconButton>
+              <Tooltip title={user ? "User" : "Login"}>
+                <IconButton
+                  size="large"
+                  aria-label="account of current user"
+                  aria-controls="menu-appbar"
+                  aria-haspopup="true"
+                  onClick={handleOpenNavMenu}
+                  color="inherit"
+                >
+                  <AccountCircle />
+                </IconButton>
+              </Tooltip>
               <Menu
                 id="menu-appbar"
                 anchorEl={anchorElNav}
@@ -106,6 +108,23 @@ const MainHeader = () => {
                 open={Boolean(anchorElNav)}
                 onClose={handleCloseNavMenu}
               >
+                <Box>
+                  {user?.photo && (
+                    <>
+                      <Box
+                        sx={{ display: "flex", justifyContent: "center" }}
+                        component="div"
+                      >
+                        <img
+                          height="25px"
+                          width="25px"
+                          src={user?.photo}
+                          alt="userPhoto"
+                        />
+                      </Box>
+                    </>
+                  )}
+                </Box>
                 <Typography m={1}>Hi, {user.name} !</Typography>
                 <Divider variant="middle" />
                 <MenuItem
@@ -117,29 +136,33 @@ const MainHeader = () => {
               </Menu>
             </>
           ) : (
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              color="inherit"
-              component={RouterLink}
-              to="/login"
-            >
-              <AccountCircle />
-            </IconButton>
+            <Tooltip title={user ? "User" : "Login"}>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                color="inherit"
+                component={RouterLink}
+                to="/login"
+              >
+                <AccountCircle />
+              </IconButton>
+            </Tooltip>
           )}
 
-          <Box sx={{ flexGrow: 0, color: "white" }}>
-            <Badge
-              component={RouterLink}
-              to="/payment"
-              badgeContent={cart.length}
-              color="secondary"
-            >
-              <ShoppingCartRoundedIcon sx={{ color: "white" }} />
-            </Badge>
-          </Box>
+          <Tooltip placement="bottom-start" title="Your Cart">
+            <IconButton sx={{ flexGrow: 0, color: "white" }}>
+              <Badge
+                component={RouterLink}
+                to="/payment"
+                badgeContent={cart.length}
+                color="secondary"
+              >
+                <ShoppingCartRoundedIcon sx={{ color: "white" }} />
+              </Badge>
+            </IconButton>
+          </Tooltip>
         </Toolbar>
       </Container>
     </AppBar>

@@ -132,9 +132,15 @@ function MainFooter() {
         <Stack mt={1} spacing={3} direction="row" name="link">
           {ICON_LINK.map((value) => (
             <Tooltip
+              sx={{
+                "&:hover": {
+                  opacity: [0.9, 0.8, 0.7],
+                  cursor: "pointer",
+                },
+              }}
               key={value.name}
               title={value.name}
-              enterDelay={300}
+              enterDelay={500}
               leaveDelay={200}
             >
               {value.icon}
