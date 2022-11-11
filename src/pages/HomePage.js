@@ -8,7 +8,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { React, useState, useEffect } from "react";
+import { React, useState, useEffect, memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ItemCard from "../features/item/ItemCard";
 import LoadingScreen from "../components/LoadingScreen";
@@ -32,7 +32,7 @@ function HomePage() {
 
   const { isLoading, items, totalPages } = useSelector((state) => state.item);
 
-  const { user, loginWithGoogle } = auth;
+  const { loginWithGoogle } = auth;
 
   const handleChangePage = () => {
     if (page === totalPages) {
@@ -50,6 +50,7 @@ function HomePage() {
     if (googleId) {
       loginWithGoogle({ googleId });
     }
+    // eslint-disable-next-line
   }, []);
 
   return (
@@ -135,4 +136,4 @@ function HomePage() {
   );
 }
 
-export default HomePage;
+export default memo(HomePage);

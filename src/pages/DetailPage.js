@@ -1,7 +1,6 @@
 import {
   Box,
   Breadcrumbs,
-  Button,
   Card,
   CardMedia,
   Container,
@@ -15,40 +14,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import LoadingScreen from "../components/LoadingScreen";
 import { getItemDetail } from "../features/item/itemSlice";
-import useAuth from "../hooks/useAuth";
 import { DOMAIN_URL } from "../app/config";
 import ImgSold from "../images/sold.png";
+import AddToCartButton from "../components/AddToCartButton";
 
 function DetailPage() {
   const params = useParams();
   const itemId = params.id;
   const dispatch = useDispatch();
-  const auth = useAuth();
-
-  const { addCart, user, cart } = auth;
 
   const { isLoading, itemDetail } = useSelector((state) => state.item);
-
-  const handleAddToCart = (itemDetail) => {
-    if (!user) {
-      alert("Login please");
-    }
-
-    const product = itemDetail;
-
-    const check = cart.every((item) => {
-      return item.product._id !== product._id;
-    });
-
-    if (check) {
-      const userId = user._id;
-      cart.push({ product, quantity: 1 });
-
-      addCart({ cart, userId });
-    } else {
-      alert("This product has been added to cart");
-    }
-  };
 
   useEffect(() => {
     dispatch(getItemDetail({ itemId }));
@@ -126,15 +101,9 @@ function DetailPage() {
                 </Typography>
               </Box>
 
-              <Button
-                sx={{ mt: 2 }}
-                variant="contained"
-                color="success"
-                onClick={() => handleAddToCart(itemDetail)}
-                size="large"
-              >
-                Add to Cart
-              </Button>
+              <Box mt={2}>
+                <AddToCartButton itemDetail={itemDetail} />
+              </Box>
             </Box>
           </Container>
         </>

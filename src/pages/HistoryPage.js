@@ -22,6 +22,8 @@ import { getPaymentDetail } from "../features/item/itemSlice";
 import { useParams } from "react-router-dom";
 import { DOMAIN_URL } from "../app/config";
 import LoadingScreen from "../components/LoadingScreen";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import ErrorIcon from "@mui/icons-material/Error";
 
 const styles = {
   styleBoxIcon: {
@@ -112,7 +114,32 @@ function HistoryPage() {
                   <Typography variant="subtitle1">
                     Shipping: {paymentDetail?.address?.country_code}
                   </Typography>
-                  <Typography variant="subtitle1">Method: Paypal</Typography>
+
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignContent: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    {paymentDetail?.data?.status === "COMPLETED" ? (
+                      <Typography variant="subtitle1">
+                        Payment:
+                        <CheckCircleIcon
+                          sx={{ mb: -0.6, ml: 0.2, color: "#388e3c" }}
+                        />{" "}
+                        Completed
+                      </Typography>
+                    ) : (
+                      <Typography variant="subtitle1">
+                        Payment:
+                        <ErrorIcon
+                          sx={{ mb: -0.6, ml: 0.2, color: "#b71c1c" }}
+                        />{" "}
+                        Failed
+                      </Typography>
+                    )}
+                  </Box>
                 </Box>
               </Stack>
 

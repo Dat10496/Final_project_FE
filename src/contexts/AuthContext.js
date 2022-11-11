@@ -175,6 +175,7 @@ function AuthProvider({ children }) {
         cart,
       });
       const { user } = response.data.data;
+
       dispatch({
         type: ADDTOCART,
         payload: { user },

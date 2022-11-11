@@ -18,6 +18,7 @@ import {
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
 import googleImg from "../images/ggleImg.png";
+import { BASE_URL } from "../app/config";
 
 const loginSchema = yup.object().shape({
   email: yup.string().email("Invalid email").required("Email is required"),
@@ -121,7 +122,7 @@ function LogInPage() {
           </LoadingButton>
           <Button
             mt={2}
-            href="http://localhost:5000/v1/auth/google"
+            href={`${BASE_URL}/auth/google`}
             component={Link}
             fullWidth
             size="large"

@@ -61,7 +61,7 @@ function PaymentHistory() {
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
                 <TableCell component="th" scope="row">
-                  PAID-{order.data.id}
+                  PAID-{order.paymentId}
                 </TableCell>
                 <TableCell align="right">
                   {order.data.create_time.slice(0, 10)}

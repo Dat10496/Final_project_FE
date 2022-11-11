@@ -1,34 +1,52 @@
 import { Box, CardContent, CardMedia, Rating, Typography } from "@mui/material";
-import React from "react";
+import { React, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { DOMAIN_URL } from "../../app/config";
+import "./itemStyle.css";
+import AddToCartButton from "../../components/AddToCartButton";
 
 function ItemCard({ item }) {
-  const itemId = item._id;
+  const [display, setDisplay] = useState("not-displayed");
 
+  const itemId = item._id;
   const navigate = useNavigate();
+
+  const showButton = (e) => {
+    e.preventDefault();
+    setDisplay("displayed");
+  };
+  const hideButton = (e) => {
+    e.preventDefault();
+    setDisplay("not-displayed");
+  };
 
   return (
     <>
       <Box
-        onClick={() => navigate(`/items/${itemId}`)}
         sx={{
           maxWidth: 220,
           maxHeight: 250,
           "&:hover": {
-            opacity: [0.9, 0.8, 0.7],
+            opacity: 0.9,
             cursor: "pointer",
           },
         }}
       >
-        <CardMedia
-          sx={{ borderRadius: 1.2 }}
-          component="img"
-          height="220"
-          width="100%"
-          src={`${DOMAIN_URL}${item.image}`}
-          alt={item.brand}
-        />
+        <div
+          onMouseEnter={(e) => showButton(e)}
+          onMouseLeave={(e) => hideButton(e)}
+        >
+          <CardMedia
+            onClick={() => navigate(`/items/${itemId}`)}
+            sx={{ borderRadius: 1.2 }}
+            component="img"
+            height="220"
+            width="100%"
+            src={`${DOMAIN_URL}${item.image}`}
+            alt={item.brand}
+          />
+          <AddToCartButton itemDetail={item} display={display} />
+        </div>
       </Box>
 
       <CardContent>

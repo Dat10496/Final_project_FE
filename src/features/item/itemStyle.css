@@ -1,0 +1,9 @@
+.not-displayed {
+    display: none;
+    width: "100px"
+}
+
+.displayed {
+    display: block;
+    width: "100px"
+}

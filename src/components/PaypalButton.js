@@ -2,6 +2,7 @@ import { PayPalButton } from "react-paypal-button-v2";
 import { React } from "react";
 import { PAYPAL_CLIENT_ID } from "../app/config";
 import { Box } from "@mui/material";
+import { toast } from "react-toastify";
 
 const style = {
   layout: "vertical",
@@ -20,7 +21,7 @@ export default function PaypalButton({ value, auth }) {
     cart.length = 0;
     addCart({ cart, userId });
 
-    alert("Transaction completed by " + details.payer.name.given_name);
+    toast.success("Transaction completed by " + details.payer.name.given_name);
   };
   return (
     <Box sx={{ width: 300, height: 50 }}>
