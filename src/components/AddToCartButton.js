@@ -2,7 +2,9 @@ import { Add } from "@mui/icons-material";
 import { Box, Button, Modal, Typography } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import useAuth from "../hooks/useAuth";
+import "react-toastify/dist/ReactToastify.css";
 
 const style = {
   position: "absolute",
@@ -42,12 +44,23 @@ const AddToCartButton = ({ display, itemDetail }) => {
     const check = cart.every((item) => {
       return item.product._id !== product._id;
     });
-
+    debugger;
     if (check) {
       const userId = user._id;
       cart.push({ product, quantity: 1 });
 
       addCart({ cart, userId });
+
+      toast.success("Added to Cart", {
+        position: "top-left",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
     } else {
       setOpenAlertAddToCart(true);
     }

@@ -15,13 +15,27 @@ export default function PaypalButton({ value, auth }) {
   const userId = user._id;
 
   const onSuccess = (details) => {
-    console.log(details);
     paymentSuccess({ details, cart });
 
     cart.length = 0;
     addCart({ cart, userId });
 
-    toast.success("Transaction completed by " + details.payer.name.given_name);
+    // toast-inform
+    toast.success(
+      "Transaction completed by " +
+        details.payer.name.given_name +
+        " successfully",
+      {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      }
+    );
   };
   return (
     <Box sx={{ width: 300, height: 50 }}>

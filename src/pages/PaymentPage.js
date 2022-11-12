@@ -7,6 +7,7 @@ import PaymentsIcon from "@mui/icons-material/Payments";
 import PaymentCart from "../components/PaymentCart";
 import PaymentHistory from "../components/PaymentHistory";
 import UpdateIcon from "@mui/icons-material/Update";
+import { ToastContainer } from "react-toastify";
 
 function PaymentPage() {
   const [currentTab, setCurrentTab] = useState("Cart");
@@ -51,6 +52,7 @@ function PaymentPage() {
           const isMatched = tab.value === currentTab;
           return isMatched && <Box key={tab.value}>{tab.component}</Box>;
         })}
+        <ToastContainer />
       </Container>
     </>
   );

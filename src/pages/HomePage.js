@@ -19,6 +19,7 @@ import ProductSearch from "../components/ProductSearch";
 import HomeIcon from "@mui/icons-material/Home";
 import useAuth from "../hooks/useAuth";
 import { useSearchParams } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 
 function HomePage() {
   const dispatch = useDispatch();
@@ -131,6 +132,7 @@ function HomePage() {
             Load more
           </Button>
         </Stack>
+        <ToastContainer />
       </Container>
     </>
   );

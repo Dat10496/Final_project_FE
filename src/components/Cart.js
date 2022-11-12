@@ -11,6 +11,7 @@ import { React } from "react";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import useAuth from "../hooks/useAuth";
 import { DOMAIN_URL } from "../app/config";
+import { toast } from "react-toastify";
 
 const QTY_ITEMS = [1, 2, 3, 4, 5];
 
@@ -23,6 +24,18 @@ function Cart({ cart }) {
     cart.splice(index, 1);
 
     addCart({ cart });
+
+    // toast-inform
+    toast.success("Removed Product", {
+      position: "top-left",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
   };
 
   const handleQuantity = (product, quantity) => {

@@ -17,6 +17,7 @@ import { getItemDetail } from "../features/item/itemSlice";
 import { DOMAIN_URL } from "../app/config";
 import ImgSold from "../images/sold.png";
 import AddToCartButton from "../components/AddToCartButton";
+import { ToastContainer } from "react-toastify";
 
 function DetailPage() {
   const params = useParams();
@@ -105,6 +106,7 @@ function DetailPage() {
                 <AddToCartButton itemDetail={itemDetail} />
               </Box>
             </Box>
+            <ToastContainer />
           </Container>
         </>
       )}
