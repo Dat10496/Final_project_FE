@@ -1,0 +1,14 @@
+.blank-layout {
+    background-image: url('../images/bg-login.jpg');
+    background-size: 1300px 1000px;
+    background-repeat: no-repeat;
+}
+
+@media only screen and (max-width: 600px) {
+    .blank-layout {
+        background-image: url('../images/bg-login.jpg');
+        background-size: 420px 900px;
+        background-repeat: no-repeat;
+        margin-bottom: 50px;
+    }
+}

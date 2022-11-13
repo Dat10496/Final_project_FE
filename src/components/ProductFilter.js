@@ -141,7 +141,6 @@ function ProductFilter({ page }) {
 
         <Stack>
           <Button
-            // sx={{ color: "#d84315" }}
             size="large"
             type="reset"
             color="inherit"

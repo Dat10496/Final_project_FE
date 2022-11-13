@@ -14,11 +14,14 @@ import {
   InputAdornment,
   IconButton,
   Button,
+  Breadcrumbs,
+  Typography,
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
 import googleImg from "../images/ggleImg.png";
 import { BASE_URL } from "../app/config";
+import HomeIcon from "@mui/icons-material/Home";
 
 const loginSchema = yup.object().shape({
   email: yup.string().email("Invalid email").required("Email is required"),
@@ -63,6 +66,24 @@ function LogInPage() {
 
   return (
     <Container maxWidth="xs">
+      <Box
+        sx={{ position: "absolute", left: "5%", top: "5%" }}
+        name="breadcrumbs"
+      >
+        <Breadcrumbs m={1} separator="›" aria-label="breadcrumb">
+          <Link
+            underline="hover"
+            sx={{ display: "flex", alignItems: "center" }}
+            color="inherit"
+            href="/"
+          >
+            <HomeIcon fontSize="medium" />
+            SNEAKER STORE
+          </Link>
+          <Typography color="#212121">Login</Typography>
+        </Breadcrumbs>
+      </Box>
+
       <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
         <Stack spacing={3}>
           {!!errors?.responseError && (
@@ -70,7 +91,7 @@ function LogInPage() {
           )}
           <Alert severity="info">
             {" "}
-            Don't have an account?
+            Don't have an account?{" "}
             <Link variant="subtitle2" component={RouterLink} to="/register">
               Get started
             </Link>
@@ -89,7 +110,11 @@ function LogInPage() {
                     onMouseDown={(e) => e.preventDefault()}
                     edge="end"
                   >
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                    {showPassword ? (
+                      <VisibilityOff color="info" />
+                    ) : (
+                      <Visibility color="info" />
+                    )}
                   </IconButton>
                 </InputAdornment>
               ),
@@ -106,7 +131,8 @@ function LogInPage() {
               underline="none"
               variant="subtitle2"
               component={RouterLink}
-              to="/"
+              to="#"
+              color="#FFF"
             >
               Forgot password?
             </Link>
@@ -117,6 +143,7 @@ function LogInPage() {
             fullWidth
             size="large"
             variant="contained"
+            color="info"
           >
             Log In
           </LoadingButton>
@@ -126,7 +153,8 @@ function LogInPage() {
             component={Link}
             fullWidth
             size="large"
-            variant="outlined"
+            variant="contained"
+            color="info"
           >
             <Box
               sx={{

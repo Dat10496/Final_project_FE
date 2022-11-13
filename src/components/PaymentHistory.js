@@ -20,7 +20,7 @@ function PaymentHistory() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { history } = useSelector((state) => state.item);
-
+  
   useEffect(() => {
     dispatch(getHistory());
   }, [dispatch]);

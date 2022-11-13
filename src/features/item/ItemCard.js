@@ -32,13 +32,14 @@ function ItemCard({ item }) {
           },
         }}
       >
-        <div
-          onMouseEnter={(e) => showButton(e)}
+        <Box
+          onMouseOver={(e) => showButton(e)}
           onMouseLeave={(e) => hideButton(e)}
+          component="div"
         >
           <CardMedia
             onClick={() => navigate(`/items/${itemId}`)}
-            sx={{ borderRadius: 1.2 }}
+            sx={{ borderRadius: 1.2, zIndex: "1" }}
             component="img"
             height="220"
             width="100%"
@@ -46,7 +47,7 @@ function ItemCard({ item }) {
             alt={item.brand}
           />
           <AddToCartButton itemDetail={item} display={display} />
-        </div>
+        </Box>
       </Box>
 
       <CardContent>

@@ -1,4 +1,5 @@
 import {
+  Alert,
   Box,
   Breadcrumbs,
   Button,
@@ -14,7 +15,7 @@ import ItemCard from "../features/item/ItemCard";
 import LoadingScreen from "../components/LoadingScreen";
 import ProductFilter from "../components/ProductFilter";
 import { getItems } from "../features/item/itemSlice";
-import SortBy from "../components/SortBy";
+import ProductSort from "../components/ProductSort";
 import ProductSearch from "../components/ProductSearch";
 import HomeIcon from "@mui/icons-material/Home";
 import useAuth from "../hooks/useAuth";
@@ -35,13 +36,16 @@ function HomePage() {
 
   const { loginWithGoogle } = auth;
 
-  const handleChangePage = () => {
+  const handleChangePage = (e) => {
+    e.preventDefault();
+    setPage(page + 1);
+  };
+
+  useEffect(() => {
     if (page === totalPages) {
       setControlPage(true);
-    } else {
-      setPage(page + 1);
     }
-  };
+  }, [page, totalPages]);
 
   useEffect(() => {
     dispatch(getItems({ page }));
@@ -86,7 +90,7 @@ function HomePage() {
             }}
           >
             <ProductSearch />
-            <SortBy />
+            <ProductSort />
           </Box>
         </Box>
 
@@ -100,15 +104,23 @@ function HomePage() {
               <LoadingScreen />
             ) : (
               <>
-                <Box sx={{ flexGrow: 1, ml: 4 }}>
-                  <Grid container spacing={2} mt={1}>
-                    {items.map((item) => (
-                      <Grid key={item._id} item xs={12} md={4} lg={3}>
-                        <ItemCard item={item} />
-                      </Grid>
-                    ))}
-                  </Grid>
-                </Box>
+                {items.length === 0 ? (
+                  <>
+                    <Box m={2}>
+                      <Alert severity="info">There is no product match</Alert>
+                    </Box>
+                  </>
+                ) : (
+                  <Box sx={{ flexGrow: 1, ml: 4 }}>
+                    <Grid container spacing={2} mt={1}>
+                      {items.map((item) => (
+                        <Grid key={item._id} item xs={12} md={4} lg={3}>
+                          <ItemCard item={item} />
+                        </Grid>
+                      ))}
+                    </Grid>
+                  </Box>
+                )}
               </>
             )}
           </Stack>
@@ -126,7 +138,7 @@ function HomePage() {
           <Button
             sx={{ color: "inherit" }}
             disabled={controlPage}
-            onClick={handleChangePage}
+            onClick={(e) => handleChangePage(e)}
             variant="outlined"
           >
             Load more

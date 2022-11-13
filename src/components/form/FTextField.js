@@ -10,6 +10,8 @@ function FTextField({ name, ...other }) {
       control={control}
       render={({ field, fieldState: { error } }) => (
         <TextField
+          variant="filled"
+          color="info"
           {...field}
           fullWidth
           error={!!error}

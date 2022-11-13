@@ -28,6 +28,9 @@ const SUCCESS = {
   darker: "#091A7A",
   contrastText: "#FFF",
 };
+const INFO = {
+  main: "#FFF",
+};
 
 function ThemeProvider({ children }) {
   const themeOptions = {
@@ -35,6 +38,7 @@ function ThemeProvider({ children }) {
       primary: PRIMARY,
       secondary: SECONDARY,
       success: SUCCESS,
+      info: INFO,
     },
     shape: { borderRadius: 8 },
     typography: {

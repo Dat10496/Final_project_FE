@@ -102,7 +102,7 @@ function DetailPage() {
                 </Typography>
               </Box>
 
-              <Box mt={2}>
+              <Box mt={5}>
                 <AddToCartButton itemDetail={itemDetail} />
               </Box>
             </Box>

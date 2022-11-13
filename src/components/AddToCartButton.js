@@ -44,7 +44,7 @@ const AddToCartButton = ({ display, itemDetail }) => {
     const check = cart.every((item) => {
       return item.product._id !== product._id;
     });
-    debugger;
+
     if (check) {
       const userId = user._id;
       cart.push({ product, quantity: 1 });
@@ -67,14 +67,15 @@ const AddToCartButton = ({ display, itemDetail }) => {
   };
 
   return (
-    <div className={display}>
+    <Box component="div" className={display}>
       <Button
         onClick={handleAddToCart}
         size="small"
         startIcon={<Add />}
         style={{
           backgroundColor: "#bf360c",
-          position: "relative",
+          position: "absolute",
+          transform: "translate(0%, -100%)",
         }}
         variant="contained"
       >
@@ -102,7 +103,7 @@ const AddToCartButton = ({ display, itemDetail }) => {
           </Typography>
         </Box>
       </Modal>
-    </div>
+    </Box>
   );
 };
 

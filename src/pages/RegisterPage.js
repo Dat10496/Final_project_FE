@@ -6,9 +6,19 @@ import * as yup from "yup";
 import { useNavigate, Link as RouterLink } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import { Container } from "@mui/system";
-import { Alert, Stack, Link, InputAdornment, IconButton } from "@mui/material";
+import {
+  Alert,
+  Stack,
+  Link,
+  InputAdornment,
+  IconButton,
+  Box,
+  Breadcrumbs,
+  Typography,
+} from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
+import HomeIcon from "@mui/icons-material/Home";
 
 const registerSchema = yup.object().shape({
   name: yup.string().required("Name is required"),
@@ -61,6 +71,24 @@ function RegisterPage() {
 
   return (
     <Container maxWidth="xs">
+      <Box
+        sx={{ position: "absolute", left: "5%", top: "5%" }}
+        name="breadcrumbs"
+      >
+        <Breadcrumbs m={1} separator="›" aria-label="breadcrumb">
+          <Link
+            underline="hover"
+            sx={{ display: "flex", alignItems: "center" }}
+            color="inherit"
+            href="/"
+          >
+            <HomeIcon fontSize="medium" />
+            SNEAKER STORE
+          </Link>
+          <Typography color="#212121">Register</Typography>
+        </Breadcrumbs>
+      </Box>
+
       <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
         <Stack spacing={3}>
           {!!errors?.responseError && (
@@ -68,7 +96,7 @@ function RegisterPage() {
           )}
           <Alert severity="info">
             {" "}
-            Already have an account?
+            Already have an account?{" "}
             <Link variant="subtitle2" component={RouterLink} to="/login">
               Sign in
             </Link>
@@ -88,7 +116,11 @@ function RegisterPage() {
                     onMouseDown={(e) => e.preventDefault()}
                     edge="end"
                   >
-                    {showPassword ? <Visibility /> : <VisibilityOff />}
+                    {showPassword ? (
+                      <Visibility color="info" />
+                    ) : (
+                      <VisibilityOff color="info" />
+                    )}
                   </IconButton>
                 </InputAdornment>
               ),
@@ -110,9 +142,9 @@ function RegisterPage() {
                     edge="end"
                   >
                     {showPasswordConfirmation ? (
-                      <Visibility />
+                      <Visibility color="info" />
                     ) : (
-                      <VisibilityOff />
+                      <VisibilityOff color="info" />
                     )}
                   </IconButton>
                 </InputAdornment>
@@ -121,11 +153,13 @@ function RegisterPage() {
           />
 
           <LoadingButton
+            color="info"
             type="submit"
             loading={isSubmitting}
             fullWidth
             size="large"
             variant="contained"
+            mb={2}
           >
             Register
           </LoadingButton>
