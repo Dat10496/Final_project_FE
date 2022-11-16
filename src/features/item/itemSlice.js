@@ -59,7 +59,7 @@ export const getItems =
     dispatch(slice.actions.startLoading());
     try {
       let params = { page, limit, brand, rating, price, value };
-
+      console.log(brand);
       const response = await apiService.get("/items", { params });
       dispatch(slice.actions.getItemSuccess(response.data.data));
     } catch (error) {

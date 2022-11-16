@@ -7,6 +7,8 @@ import {
   Stack,
   Box,
   Typography,
+  Checkbox,
+  FormGroup,
 } from "@mui/material";
 import { React, useState } from "react";
 import { getItems } from "../features/item/itemSlice";
@@ -35,7 +37,7 @@ const FILTER_BY_BRAND = [
   { value: "Adidas", label: "Adidas" },
 ];
 
-function ProductFilter({ page }) {
+function ProductFilter() {
   const [sortByPrice, setSortByPrice] = useState({});
   const [sortByRating, setSortByRating] = useState({});
   const [sortByBrand, setSortByBrand] = useState({});
@@ -76,18 +78,21 @@ function ProductFilter({ page }) {
       <Box width={200}>
         <Stack m={1} spacing={2}>
           <Stack>
-            <Typography variant="h6">Brand ({sortByBrand.brand})</Typography>
+            <Typography variant="h6">Brand</Typography>
             {FILTER_BY_BRAND.map((option) => (
-              <Typography
-                onClick={() => handleSelectBrand(option)}
-                key={option.value}
-                component={Button}
-                variant="BUTTON"
-                color="black"
-                size="small"
-              >
-                {option.label}
-              </Typography>
+              <FormGroup>
+                <FormControlLabel
+                  key={option.value}
+                  onClick={() => handleSelectBrand(option)}
+                  control={
+                    <Checkbox
+                      checked={sortByBrand.brand === option.label}
+                      name={option.label}
+                    />
+                  }
+                  label={option.label}
+                />
+              </FormGroup>
             ))}
           </Stack>
           <Divider variant="middle" />
@@ -134,6 +139,7 @@ function ProductFilter({ page }) {
             sx={{ color: "#607d8b" }}
             startIcon={<SortIcon />}
             onClick={handleSortOption}
+            variant="outlined"
           >
             Filter
           </Button>

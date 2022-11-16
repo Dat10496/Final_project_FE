@@ -20,13 +20,13 @@ function PaymentHistory() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { history } = useSelector((state) => state.item);
-  
+
   useEffect(() => {
     dispatch(getHistory());
   }, [dispatch]);
 
   return (
-    <Container sx={{ maxWidth: { xs: 400, sm: "100vh" } }}>
+    <Container sx={{ maxWidth: { xs: 400, sm: "100vh" }, mt: 1 }}>
       <Box
         sx={{
           display: "flex",

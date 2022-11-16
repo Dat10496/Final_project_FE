@@ -21,7 +21,6 @@ function PaymentPage() {
       <Container
         sx={{
           mt: 2,
-          maxWidth: "200vh",
         }}
       >
         <Breadcrumbs m={1.5} separator="›" aria-label="breadcrumb">

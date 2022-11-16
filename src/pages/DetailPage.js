@@ -32,84 +32,102 @@ function DetailPage() {
 
   return (
     <>
-      {isLoading ? (
-        <LoadingScreen />
-      ) : (
-        <>
-          <Breadcrumbs m={1.5} separator="›" aria-label="breadcrumb">
-            <Link underline="hover" color="inherit" href="/">
-              SNEAKER STORE
-            </Link>
-            <Typography color="text.primary">{itemDetail.brand}</Typography>
-          </Breadcrumbs>
+      <Container>
+        {isLoading ? (
+          <LoadingScreen />
+        ) : (
+          <>
+            <Breadcrumbs m={1.5} separator="›" aria-label="breadcrumb">
+              <Link underline="hover" color="inherit" href="/">
+                SNEAKER STORE
+              </Link>
+              <Typography color="text.primary">{itemDetail.brand}</Typography>
+            </Breadcrumbs>
 
-          <Container
-            sx={{
-              display: { xs: "", sm: "flex" },
-              mt: 3,
-              p: 1,
-              minHeight: "100vh",
-              justifyContent: "space-between",
-            }}
-          >
-            <Box sx={{ height: 500, width: 500 }}>
-              <Card
+            <Box
+              sx={{
+                display: { xs: "", sm: "flex" },
+                mt: 3,
+                p: 1,
+                minHeight: "100vh",
+                justifyContent: "space-between",
+              }}
+            >
+              <Box
                 sx={{
-                  maxWidth: { xs: 400, sm: 500 },
-                  maxHeight: { xs: 400, sm: 500 },
+                  height: { xs: 350, sm: 500 },
+                  width: { xs: 350, sm: 500 },
                 }}
-                name="media"
               >
-                <CardMedia
-                  component="img"
-                  height="450"
-                  width="450"
-                  image={`${DOMAIN_URL}${itemDetail.image}`}
-                  alt={itemDetail.brand}
-                />
-              </Card>
-            </Box>
-
-            <Box sx={{ width: 500, height: 500, p: 1, mr: 5 }}>
-              <Typography gutterBottom variant="h3" component="div">
-                {itemDetail.brand}
-              </Typography>
-              <Rating value={itemDetail.rating} precision={0.1} readOnly />
-              <Typography variant="h6" color="text">
-                $ {itemDetail.price}
-              </Typography>
-              <Divider sx={{ mb: 2 }} light />
-
-              <Typography variant="body1" color="text">
-                {itemDetail.details}
-              </Typography>
+                <Card
+                  sx={{
+                    width: { xs: 350, sm: 500 },
+                    height: { xs: 350, sm: 500 },
+                  }}
+                  name="media"
+                >
+                  <CardMedia
+                    component="img"
+                    height="500"
+                    width="500"
+                    image={`${DOMAIN_URL}${itemDetail.image}`}
+                    alt={itemDetail.brand}
+                  />
+                </Card>
+              </Box>
 
               <Box
                 sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  mt: 1,
+                  height: { xs: 350, sm: 500 },
+                  width: { xs: 350, sm: 500 },
+                  p: 1,
+                  mr: 5,
                 }}
               >
-                <Box sx={{ height: 40, width: 40 }}>
-                  <img src={ImgSold} alt="soldImage" width="100%" />
-                </Box>
-                <Typography variant="h6" color="text.secondary">
-                  {itemDetail.totalSold}
+                <Typography gutterBottom variant="h3" component="div">
+                  {itemDetail.brand}
                 </Typography>
-                <Typography sx={{ ml: 1 }} variant="subtitle1" color="#cc571f">
-                  Product Sold
+                <Rating value={itemDetail.rating} precision={0.1} readOnly />
+                <Typography variant="h6" color="text">
+                  $ {itemDetail.price}
                 </Typography>
-              </Box>
+                <Divider sx={{ mb: 2 }} light />
 
-              <Box mt={5}>
-                <AddToCartButton itemDetail={itemDetail} />
+                <Typography variant="body1" color="text">
+                  {itemDetail.details}
+                </Typography>
+
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    mt: 1,
+                  }}
+                >
+                  <Box sx={{ height: 40, width: 40 }}>
+                    <img src={ImgSold} alt="soldImage" width="100%" />
+                  </Box>
+                  <Typography variant="h6" color="text.secondary">
+                    {itemDetail.totalSold}
+                  </Typography>
+                  <Typography
+                    sx={{ ml: 1 }}
+                    variant="subtitle1"
+                    color="#cc571f"
+                  >
+                    Product Sold
+                  </Typography>
+                </Box>
+
+                <Box mt={5}>
+                  <AddToCartButton itemDetail={itemDetail} />
+                </Box>
               </Box>
+              <ToastContainer />
             </Box>
-            <ToastContainer />
-          </Container>
-        </>
-      )}
+          </>
+        )}
+      </Container>
     </>
   );
 }

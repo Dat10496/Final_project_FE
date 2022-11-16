@@ -55,7 +55,7 @@ function Cart({ cart }) {
           <Box
             sx={{
               display: { xs: "", md: "flex" },
-              width: 600,
+              width: { xs: 380, sm: 600 },
               alignItems: "center",
               p: 1,
               justifyContent: "space-between",

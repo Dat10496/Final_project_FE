@@ -64,14 +64,14 @@ function PaymentCart() {
 
   return (
     <>
-      <Container sx={{ maxWidth: { xs: 400, sm: "100vh" } }}>
+      <Box sx={{ mt: 1 }}>
         <Box
           sx={{
             position: "relative",
-            right: { md: "45%", xs: "5%" },
-            width: { xs: 400, md: 1100 },
+            right: { xs: "2%", sm: "" },
             display: { xs: "", md: "flex" },
             justifyContent: "space-between",
+            maxWidth: 1200,
           }}
         >
           <Box name="cart">
@@ -84,6 +84,7 @@ function PaymentCart() {
               width: 320,
               height: 400,
               p: 2,
+              m: 2,
             }}
           >
             <Typography variant="h5">Summary</Typography>
@@ -106,7 +107,7 @@ function PaymentCart() {
             </Box>
           </Box>
         </Box>
-      </Container>
+      </Box>
     </>
   );
 }

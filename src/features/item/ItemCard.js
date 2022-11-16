@@ -24,8 +24,8 @@ function ItemCard({ item }) {
     <>
       <Box
         sx={{
-          maxWidth: 220,
-          maxHeight: 250,
+          width: 220,
+          height: 250,
           "&:hover": {
             opacity: 0.9,
             cursor: "pointer",
@@ -50,7 +50,12 @@ function ItemCard({ item }) {
         </Box>
       </Box>
 
-      <CardContent>
+      <CardContent
+        sx={{
+          width: 220,
+          height: 250,
+        }}
+      >
         <Typography fontStyle="bold" gutterBottom variant="h5" component="div">
           {item.brand}
         </Typography>

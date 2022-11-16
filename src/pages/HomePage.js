@@ -107,7 +107,7 @@ function HomePage() {
                 {items.length === 0 ? (
                   <>
                     <Box m={2}>
-                      <Alert severity="info">There is no product match</Alert>
+                      <Alert severity="error">There is no product match</Alert>
                     </Box>
                   </>
                 ) : (

@@ -41,7 +41,7 @@ const styles = {
 
 function MainFooter() {
   return (
-    <Box sx={{ maxWidth: { xs: 400, md: "xl" } }} mt={2}>
+    <Box position="static" sx={{ maxWidth: { xs: 500, md: "xl" } }} mt={2}>
       <Box className="saleImage">
         <Box sx={{ p: 3 }} style={styles.paperStyle}>
           <Box
