@@ -9,7 +9,7 @@ import { useDispatch } from "react-redux";
 import { getItems } from "../features/item/itemSlice";
 
 const SORT_BY_ITEM = [
-  { value: "createdAt -1", label: "Newest" },
+  { value: "createdAt: -1", label: "Newest" },
   { value: "price: -1", label: "Price: High-Low" },
   { value: "price: 1", label: "Price: Low-High" },
 ];
