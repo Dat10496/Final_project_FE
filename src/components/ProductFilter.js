@@ -140,6 +140,7 @@ function ProductFilter() {
             startIcon={<SortIcon />}
             onClick={handleSortOption}
             variant="outlined"
+            size="large"
           >
             Filter
           </Button>
