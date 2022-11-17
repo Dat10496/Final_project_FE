@@ -37,7 +37,7 @@ const MainHeader = () => {
 
   return (
     <AppBar position="static">
-      <Container sx={{ maxWidth: { xs: 500, md: "xl" } }}>
+      <Container>
         <Toolbar disableGutters>
           <Logo />
           <Typography

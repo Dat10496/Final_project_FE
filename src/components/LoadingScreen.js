@@ -6,12 +6,11 @@ function LoadingScreen() {
   return (
     <Box
       sx={{
-        position: "absolute",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        width: "100%",
-        height: "100%",
+        width: 700,
+        height: 500,
       }}
     >
       <CircularProgress />
