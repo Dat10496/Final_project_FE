@@ -70,17 +70,16 @@ function LogInPage() {
         sx={{ position: "absolute", left: "5%", top: "5%" }}
         name="breadcrumbs"
       >
-        <Breadcrumbs m={1} separator="›" aria-label="breadcrumb">
+        <Breadcrumbs color="#fff" m={1} separator="›" aria-label="breadcrumb">
           <Link
             underline="hover"
-            sx={{ display: "flex", alignItems: "center" }}
-            color="inherit"
+            sx={{ display: "flex", alignItems: "center", color: "#fff" }}
             href="/"
           >
-            <HomeIcon fontSize="medium" />
+            <HomeIcon sx={{ color: "#fff", mr: 0.5 }} fontSize="inherit" />
             SNEAKER STORE
           </Link>
-          <Typography color="#212121">Login</Typography>
+          <Typography color="#fff">Login</Typography>
         </Breadcrumbs>
       </Box>
 
