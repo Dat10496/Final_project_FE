@@ -15,6 +15,6 @@ email: personal1245@gmail.com
 password: 123456789
 ```
 
-## Video
-https://user-images.githubusercontent.com/95413948/205050514-2b588c33-f1bf-4e8f-acc0-a386f4bb5da2.mp4
+
+
 
