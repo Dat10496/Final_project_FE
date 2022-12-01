@@ -15,8 +15,16 @@ function Router() {
     <Routes>
       <Route element={<MainLayout />}>
         <Route index element={<HomePage />} />
+        <Route path="/page/:page" element={<HomePage />} />
         <Route path="/items/:id" element={<DetailPage />} />
+        <Route path="/filter/:value" element={<HomePage />} />
+        <Route path="/filter/:value/page/:page" element={<HomePage />} />
+        <Route path="/search=:search" element={<HomePage />} />
+        <Route path="/search=:search/page/:page" element={<HomePage />} />
+        <Route path="/sort=:sort" element={<HomePage />} />
+        <Route path="/sort=:sort/page/:page" element={<HomePage />} />
       </Route>
+
       <Route
         element={
           <AuthRequire>
@@ -27,6 +35,7 @@ function Router() {
         <Route path="/payment" element={<PaymentPage />} />
         <Route path="/history/:id" element={<HistoryPage />} />
       </Route>
+
       <Route element={<BlankLayout />}>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />

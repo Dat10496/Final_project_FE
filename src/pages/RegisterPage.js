@@ -4,7 +4,6 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useNavigate, Link as RouterLink } from "react-router-dom";
-import useAuth from "../hooks/useAuth";
 import { Container } from "@mui/system";
 import {
   Alert,
@@ -16,9 +15,11 @@ import {
   Breadcrumbs,
   Typography,
 } from "@mui/material";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
 import HomeIcon from "@mui/icons-material/Home";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+
+import useAuth from "../hooks/useAuth";
 
 const registerSchema = yup.object().shape({
   name: yup.string().required("Name is required"),
@@ -56,6 +57,7 @@ function RegisterPage() {
     setError,
     formState: { errors, isSubmitting },
   } = methods;
+
   const onSubmit = async (data) => {
     const { name, email, password } = data;
 

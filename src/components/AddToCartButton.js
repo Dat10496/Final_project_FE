@@ -3,6 +3,7 @@ import { Box, Button, Modal, Typography } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+
 import useAuth from "../hooks/useAuth";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -26,9 +27,9 @@ const style = {
 const AddToCartButton = ({ display, itemDetail }) => {
   const [openModalLogin, setOpenModalLogin] = useState(false);
   const [openAlertAddToCart, setOpenAlertAddToCart] = useState(false);
-  const auth = useAuth();
   const navigate = useNavigate();
 
+  const auth = useAuth();
   const { addCart, user, cart } = auth;
 
   const handleModalLoginClose = () => setOpenModalLogin(false);
@@ -46,7 +47,7 @@ const AddToCartButton = ({ display, itemDetail }) => {
     });
 
     if (check) {
-      const userId = user._id;
+      const userId = user?._id;
       cart.push({ product, quantity: 1 });
 
       addCart({ cart, userId });
@@ -67,7 +68,7 @@ const AddToCartButton = ({ display, itemDetail }) => {
   };
 
   return (
-    <Box component="div" className={display}>
+    <Box className={display}>
       <Button
         onClick={handleAddToCart}
         size="small"
@@ -75,8 +76,10 @@ const AddToCartButton = ({ display, itemDetail }) => {
         style={{
           backgroundColor: "#bf360c",
           position: "absolute",
-          transform: "translate(0%, -100%)",
+          transform: "translate(0%, -20%)",
+          duration: 5,
         }}
+        sx={{ width: 220 }}
         variant="contained"
       >
         Add To Cart

@@ -7,11 +7,12 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import Container from "@mui/material/Container";
 import MenuItem from "@mui/material/MenuItem";
-import Logo from "../components/Logo";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import ShoppingCartRoundedIcon from "@mui/icons-material/ShoppingCartRounded";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { Badge, Divider, Tooltip } from "@mui/material";
+
+import Logo from "../components/Logo";
 import useAuth from "../hooks/useAuth";
 
 const MainHeader = () => {

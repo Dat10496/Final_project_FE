@@ -10,12 +10,14 @@ import {
   Checkbox,
   FormGroup,
 } from "@mui/material";
-import { React, useState } from "react";
-import { getItems } from "../features/item/itemSlice";
+import FormControl from "@material-ui/core/FormControl";
+import { React, useEffect, useState, memo } from "react";
 import { useDispatch } from "react-redux";
 import StarOutlineIcon from "@mui/icons-material/StarOutline";
 import ClearAllIcon from "@mui/icons-material/ClearAll";
-import SortIcon from "@mui/icons-material/Sort";
+import { useNavigate, useParams } from "react-router-dom";
+
+import { getItems } from "../features/item/itemSlice";
 
 const FILTER_BY_RATING = [
   { value: "$lte 3", label: "Below 3" },
@@ -37,41 +39,80 @@ const FILTER_BY_BRAND = [
   { value: "Adidas", label: "Adidas" },
 ];
 
-function ProductFilter() {
-  const [sortByPrice, setSortByPrice] = useState({});
-  const [sortByRating, setSortByRating] = useState({});
+function ProductFilter({ page }) {
+  const [sortByPrice, setSortByPrice] = useState({ price: "" });
+  const [sortByRating, setSortByRating] = useState({ rating: "" });
   const [sortByBrand, setSortByBrand] = useState({});
+
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
+  const { search, value, sort } = useParams();
+
+  // Sort product by price
   const handleSelectPrice = (option) => {
-    const price = option.value;
-    setSortByPrice({ price });
+    navigate(`/filter/${option.label}`);
+    if (sortByPrice.price === option.value) {
+      setSortByPrice({ price: "" });
+    } else {
+      const price = option.value;
+      setSortByPrice({ price });
+    }
   };
 
+  // Sort product by rating
   const handleSelectRating = (option) => {
-    const rating = option.value;
-    setSortByRating({ rating });
+    navigate(`/filter/${option.label}`);
+    if (sortByRating.rating === option.value) {
+      setSortByRating({ rating: "" });
+    } else {
+      const rating = option.value;
+      setSortByRating({ rating });
+    }
   };
 
+  // Sort product by brand
   const handleSelectBrand = (option) => {
-    const brand = option.value;
-    setSortByBrand({ brand });
+    navigate(`/filter/${option.label}`);
+    if (sortByBrand.brand === option.value) {
+      setSortByBrand({});
+    } else {
+      const brand = option.value;
+      setSortByBrand({ brand });
+    }
   };
 
-  const handleSortOption = () => {
+  const resetFilter = () => {
+    setSortByRating({ rating: "" });
+    setSortByPrice({ price: "" });
+    setSortByBrand({});
+
+    dispatch(getItems({}));
+    navigate("/");
+  };
+
+  useEffect(() => {
     const { price } = sortByPrice;
     const { rating } = sortByRating;
     const { brand } = sortByBrand;
 
-    dispatch(getItems({ price, rating, brand }));
-  };
+    if (!brand && !price && !rating && !page && !value && !search && !sort) {
+      navigate("/");
+      dispatch(getItems({}));
+    }
 
-  const resetFilter = () => {
-    setSortByRating();
-    setSortByPrice();
-    setSortByBrand();
-    window.location.reload();
-  };
+    const handleSortOption = () => {
+      if ((price || rating || brand) && page) {
+        dispatch(getItems({ price, rating, brand, page }));
+      } else if (price || rating || brand) {
+        dispatch(getItems({ price, rating, brand }));
+      }
+    };
+
+    handleSortOption();
+
+    // eslint-disable-next-line
+  }, [sortByBrand, sortByPrice, sortByRating, page]);
 
   return (
     <>
@@ -80,9 +121,9 @@ function ProductFilter() {
           <Stack>
             <Typography variant="h6">Brand</Typography>
             {FILTER_BY_BRAND.map((option) => (
-              <FormGroup>
+              <FormGroup key={option.value}>
                 <FormControlLabel
-                  key={option.value}
+                  value={option.value}
                   onClick={() => handleSelectBrand(option)}
                   control={
                     <Checkbox
@@ -99,51 +140,45 @@ function ProductFilter() {
 
           <Stack>
             <Typography variant="h6">Price</Typography>
-            <RadioGroup name="PriceRange">
-              {FILTER_BY_PRICE.map((option) => (
-                <FormControlLabel
-                  onClick={() => handleSelectPrice(option)}
-                  key={option.value}
-                  value={option.value}
-                  control={<Radio />}
-                  label={option.label}
-                />
-              ))}
-            </RadioGroup>
+
+            <FormControl>
+              <RadioGroup value={sortByPrice.price} name="PriceRange">
+                {FILTER_BY_PRICE.map((option) => (
+                  <FormControlLabel
+                    key={option.value}
+                    value={option.value}
+                    onClick={() => handleSelectPrice(option)}
+                    control={<Radio />}
+                    label={option.label}
+                  />
+                ))}
+              </RadioGroup>
+            </FormControl>
           </Stack>
           <Divider variant="middle" />
 
           <Stack>
             <Typography variant="h6">Rating</Typography>
-            <RadioGroup name="RatingRange">
-              {FILTER_BY_RATING.map((option) => (
-                <FormControlLabel
-                  onClick={() => handleSelectRating(option)}
-                  key={option.value}
-                  value={option.value}
-                  control={<Radio />}
-                  label={
-                    <Stack flexDirection="row" alignContent="center">
-                      {option.label}
-                      <StarOutlineIcon />
-                    </Stack>
-                  }
-                />
-              ))}
-            </RadioGroup>
-          </Stack>
-        </Stack>
 
-        <Stack mb={2}>
-          <Button
-            sx={{ color: "#607d8b" }}
-            startIcon={<SortIcon />}
-            onClick={handleSortOption}
-            variant="outlined"
-            size="large"
-          >
-            Filter
-          </Button>
+            <FormControl>
+              <RadioGroup value={sortByRating.rating} name="RatingRange">
+                {FILTER_BY_RATING.map((option) => (
+                  <FormControlLabel
+                    key={option.value}
+                    onClick={() => handleSelectRating(option)}
+                    value={option.value}
+                    control={<Radio />}
+                    label={
+                      <Stack flexDirection="row" alignContent="center">
+                        {option.label}
+                        <StarOutlineIcon />
+                      </Stack>
+                    }
+                  />
+                ))}
+              </RadioGroup>
+            </FormControl>
+          </Stack>
         </Stack>
 
         <Stack>
@@ -163,4 +198,4 @@ function ProductFilter() {
   );
 }
 
-export default ProductFilter;
+export default memo(ProductFilter);

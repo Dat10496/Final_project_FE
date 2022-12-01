@@ -1,6 +1,6 @@
 import React from "react";
 import { Link as RouterLink } from "react-router-dom";
-import Box from "@mui/material/Box";
+import { Box } from "@mui/material";
 import logoImg from "../images/logo2.jpg";
 
 function Logo({ disabledLink = false, sx }) {

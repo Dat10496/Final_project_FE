@@ -9,9 +9,10 @@ import {
 } from "@mui/material";
 import { React } from "react";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import { toast } from "react-toastify";
+
 import useAuth from "../hooks/useAuth";
 import { DOMAIN_URL } from "../app/config";
-import { toast } from "react-toastify";
 
 const QTY_ITEMS = [1, 2, 3, 4, 5];
 

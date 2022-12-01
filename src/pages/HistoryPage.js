@@ -20,10 +20,11 @@ import LocalShippingRoundedIcon from "@mui/icons-material/LocalShippingRounded";
 import PinDropRoundedIcon from "@mui/icons-material/PinDropRounded";
 import { getPaymentDetail } from "../features/item/itemSlice";
 import { useParams } from "react-router-dom";
-import { DOMAIN_URL } from "../app/config";
-import LoadingScreen from "../components/LoadingScreen";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import ErrorIcon from "@mui/icons-material/Error";
+
+import { DOMAIN_URL } from "../app/config";
+import LoadingScreen from "../components/LoadingScreen";
 
 const styles = {
   styleBoxIcon: {

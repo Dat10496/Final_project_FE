@@ -1,12 +1,12 @@
-import apiService from "../../app/apiService";
 import { createSlice } from "@reduxjs/toolkit";
+import apiService from "../../app/apiService";
 
 const initialState = {
   isLoading: false,
   error: null,
   items: [],
   itemDetail: {},
-  totalPages: {},
+  totalPages: 1,
   history: [],
   paymentDetail: {},
 };
@@ -54,13 +54,13 @@ const slice = createSlice({
 });
 
 export const getItems =
-  ({ brand, price, rating, page, value, limit = ITEM_PER_PAGE }) =>
+  ({ brand, price, rating, value, page, limit = ITEM_PER_PAGE }) =>
   async (dispatch) => {
     dispatch(slice.actions.startLoading());
     try {
       let params = { page, limit, brand, rating, price, value };
-
       const response = await apiService.get("/items", { params });
+
       dispatch(slice.actions.getItemSuccess(response.data.data));
     } catch (error) {
       dispatch(slice.actions.hasError(error.message));

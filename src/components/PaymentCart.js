@@ -1,9 +1,10 @@
 import { Box, Button, Container, Divider, Typography } from "@mui/material";
 import { React, useEffect, useState, memo } from "react";
+import { useNavigate } from "react-router-dom";
+
 import Cart from "./Cart";
 import PaypalButton from "./PaypalButton";
 import useAuth from "../hooks/useAuth";
-import { useNavigate } from "react-router-dom";
 
 function PaymentCart() {
   const navigate = useNavigate();

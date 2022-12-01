@@ -1,6 +1,7 @@
-import { Box, CardContent, CardMedia, Rating, Typography } from "@mui/material";
+import { Box, CardContent, Rating, Typography } from "@mui/material";
 import { React, useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 import { DOMAIN_URL } from "../../app/config";
 import "./itemStyle.css";
 import AddToCartButton from "../../components/AddToCartButton";
@@ -37,12 +38,20 @@ function ItemCard({ item }) {
           onMouseLeave={(e) => hideButton(e)}
           component="div"
         >
-          <CardMedia
+          <Box
             onClick={() => navigate(`/items/${itemId}`)}
-            sx={{ borderRadius: 1.2, zIndex: "1" }}
+            sx={{
+              boxShadow: 3,
+              borderRadius: 1.2,
+              zIndex: "1",
+              "&:hover": {
+                border: "1px solid #FF8243",
+                boxShadow: 5,
+              },
+            }}
             component="img"
-            height="220"
-            width="100%"
+            height="220px"
+            width="220px"
             src={`${DOMAIN_URL}${item.image}`}
             alt={item.brand}
           />

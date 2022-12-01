@@ -1,8 +1,9 @@
 import React from "react";
-import MainFooter from "./MainFooter";
-import MainHeader from "./MainHeader";
 import { Outlet } from "react-router-dom";
 import { Stack, Box } from "@mui/material";
+
+import MainHeader from "./MainHeader";
+import MainFooter from "./MainFooter";
 
 function MainLayout() {
   return (

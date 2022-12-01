@@ -1,4 +1,4 @@
-import * as React from "react";
+import { React, useState } from "react";
 import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -6,6 +6,9 @@ import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import { Box } from "@mui/material";
 import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+
 import { getItems } from "../features/item/itemSlice";
 
 const SORT_BY_ITEM = [
@@ -14,17 +17,35 @@ const SORT_BY_ITEM = [
   { value: "price: 1", label: "Price: Low-High" },
 ];
 
-export default function SortBy() {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+export default function ProductSort({ page }) {
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [sortValue, setSortValue] = useState();
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { sort } = useParams();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
   const handleClose = (value) => {
     setAnchorEl(null);
-    dispatch(getItems({ value }));
+    setSortValue(value);
+
+    if (value) {
+      navigate(`/sort=${value}`);
+    }
   };
+
+  useEffect(() => {
+    const value = sortValue;
+
+    if (!sort) {
+      setSortValue();
+    } else if (sortValue || (sortValue && page)) {
+      dispatch(getItems({ value, page }));
+    }
+  }, [sortValue, page, dispatch, sort]);
 
   return (
     <>

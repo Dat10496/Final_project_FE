@@ -4,7 +4,6 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useNavigate, Link as RouterLink } from "react-router-dom";
-import useAuth from "../hooks/useAuth";
 import { Container } from "@mui/system";
 import {
   Alert,
@@ -17,11 +16,13 @@ import {
   Breadcrumbs,
   Typography,
 } from "@mui/material";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { LoadingButton } from "@mui/lab";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import HomeIcon from "@mui/icons-material/Home";
+
+import useAuth from "../hooks/useAuth";
 import googleImg from "../images/ggleImg.png";
 import { BASE_URL } from "../app/config";
-import HomeIcon from "@mui/icons-material/Home";
 
 const loginSchema = yup.object().shape({
   email: yup.string().email("Invalid email").required("Email is required"),
@@ -35,7 +36,10 @@ const defaultValues = {
 };
 
 function LogInPage() {
+  const navigate = useNavigate();
   const auth = useAuth();
+  const [showPassword, setShowPassword] = useState(false);
+
   const methods = useForm({
     resolver: yupResolver(loginSchema),
     defaultValues,
@@ -47,9 +51,6 @@ function LogInPage() {
     setError,
     formState: { errors, isSubmitting },
   } = methods;
-
-  const navigate = useNavigate();
-  const [showPassword, setShowPassword] = useState(false);
 
   const onSubmit = async (data) => {
     let { email, password } = data;
