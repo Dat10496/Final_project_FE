@@ -38,32 +38,32 @@ const AddToCartButton = ({ display, itemDetail }) => {
   const handleAddToCart = () => {
     if (!user) {
       setOpenModalLogin(true);
-    }
-
-    const product = itemDetail;
-
-    const check = cart.every((item) => {
-      return item.product._id !== product._id;
-    });
-
-    if (check) {
-      const userId = user?._id;
-      cart.push({ product, quantity: 1 });
-
-      addCart({ cart, userId });
-
-      toast.success("Added to Cart", {
-        position: "top-left",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-      });
     } else {
-      setOpenAlertAddToCart(true);
+      const product = itemDetail;
+
+      const check = cart.every((item) => {
+        return item.product._id !== product._id;
+      });
+
+      if (check) {
+        const userId = user?._id;
+        cart.push({ product, quantity: 1 });
+
+        addCart({ cart, userId });
+
+        toast.success("Added to Cart", {
+          position: "top-left",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "colored",
+        });
+      } else {
+        setOpenAlertAddToCart(true);
+      }
     }
   };
 
