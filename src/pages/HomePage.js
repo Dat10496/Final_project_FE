@@ -41,8 +41,8 @@ function HomePage() {
   const { loginWithGoogle } = auth;
 
   const handleChangePage = (item) => {
+    window.scrollTo(0, 0);
     if (value) {
-      window.scrollTo(0, 0);
       return `/filter/${value}/page/${item.page}`;
     } else if (search) {
       return `/search=${search}/page/${item.page}`;
