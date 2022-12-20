@@ -166,7 +166,7 @@ function MainFooter() {
           </Typography>
         </Box>
         <Box m={1} component="div">
-          <img src={paymentImage} alt="saleImage" />
+          <img src={paymentImage} alt="saleImage" width="100%" />
         </Box>
       </Box>
     </Box>

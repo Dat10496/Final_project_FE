@@ -43,6 +43,7 @@ function ProductFilter({ page }) {
   const [sortByPrice, setSortByPrice] = useState({ price: "" });
   const [sortByRating, setSortByRating] = useState({ rating: "" });
   const [sortByBrand, setSortByBrand] = useState({});
+  const [controlBtn, setControlBtn] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -111,8 +112,21 @@ function ProductFilter({ page }) {
 
     handleSortOption();
 
+    // Control Btn FilterPage
+    const handleControlFilter = () => {
+      if (!brand && price === "" && rating === "") {
+        setControlBtn(true);
+      } else {
+        setControlBtn(false);
+      }
+    };
+
+    handleControlFilter();
+
     // eslint-disable-next-line
   }, [sortByBrand, sortByPrice, sortByRating, page]);
+
+  useEffect(() => {}, []);
 
   return (
     <>
@@ -189,6 +203,7 @@ function ProductFilter({ page }) {
             variant="outlined"
             onClick={resetFilter}
             startIcon={<ClearAllIcon />}
+            disabled={controlBtn}
           >
             Clear All
           </Button>

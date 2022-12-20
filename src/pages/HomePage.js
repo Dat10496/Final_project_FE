@@ -128,7 +128,7 @@ function HomePage() {
                     {(search || sort) && <SearchingInfo />}
                     <Grid container spacing={1.5} mt={1}>
                       {items.map((item) => (
-                        <Grid key={item._id} item xs={12} md={4} lg={3}>
+                        <Grid key={item._id} item xs={12} sm={3} lg={3}>
                           <ItemCard item={item} />
                         </Grid>
                       ))}

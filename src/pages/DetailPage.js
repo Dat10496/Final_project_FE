@@ -67,8 +67,8 @@ function DetailPage() {
               >
                 <Box
                   component="img"
-                  height="500px"
-                  width="500px"
+                  height="100%"
+                  width="100%"
                   src={`${DOMAIN_URL}${itemDetail.image}`}
                   alt={itemDetail.brand}
                 />

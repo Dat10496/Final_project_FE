@@ -38,23 +38,25 @@ function ItemCard({ item }) {
           onMouseLeave={(e) => hideButton(e)}
           component="div"
         >
-          <Box
-            onClick={() => navigate(`/items/${itemId}`)}
-            sx={{
-              boxShadow: 3,
-              borderRadius: 1.2,
-              zIndex: "1",
-              "&:hover": {
-                border: "1px solid #FF8243",
-                boxShadow: 5,
-              },
-            }}
-            component="img"
-            height="220px"
-            width="220px"
-            src={`${DOMAIN_URL}${item.image}`}
-            alt={item.brand}
-          />
+          <Box sx={{ width: 220, height: 220 }}>
+            <Box
+              onClick={() => navigate(`/items/${itemId}`)}
+              sx={{
+                boxShadow: 3,
+                borderRadius: 1.2,
+                zIndex: "1",
+                "&:hover": {
+                  border: "1px solid #FF8243",
+                  boxShadow: 5,
+                },
+              }}
+              component="img"
+              width="100%"
+              height="100%"
+              src={`${DOMAIN_URL}${item.image}`}
+              alt={item.brand}
+            />
+          </Box>
           <AddToCartButton itemDetail={item} display={display} />
         </Box>
       </Box>
