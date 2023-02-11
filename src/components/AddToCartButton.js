@@ -76,7 +76,7 @@ const AddToCartButton = ({ display, itemDetail }) => {
         style={{
           backgroundColor: "#bf360c",
           position: "absolute",
-          transform: "translate(0%, -20%)",
+          transform: "translate(0%, -10%)",
           duration: 5,
         }}
         sx={{ width: 220 }}

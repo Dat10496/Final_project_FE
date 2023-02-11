@@ -70,13 +70,19 @@ function HomePage() {
       <Container>
         <Box
           sx={{
-            display: "flex",
+            display: { sm: "flex", xs: "block" },
             justifyContent: "space-between",
+            alignItems: "center",
             m: 1,
             maxWidth: "200vh",
           }}
         >
-          <Breadcrumbs m={1} separator="›" aria-label="breadcrumb">
+          <Breadcrumbs
+            m={1}
+            separator="›"
+            aria-label="breadcrumb"
+            sx={{ width: { xs: "90%" } }}
+          >
             <Link
               underline="hover"
               sx={{ display: "flex", alignItems: "center" }}
@@ -91,8 +97,10 @@ function HomePage() {
 
           <Box
             sx={{
-              display: { xs: "", md: "flex" },
+              display: { xs: "", sm: "flex" },
+              width: { xs: "80%" },
               justifyContent: "flex-end",
+              alignItems: "center",
               mr: 3,
             }}
           >
@@ -102,7 +110,13 @@ function HomePage() {
         </Box>
 
         <Stack direction={{ xs: "column", sm: "row" }}>
-          <Stack sx={{ mr: 2, mt: 2 }}>
+          <Stack
+            sx={{
+              mr: 2,
+              mt: 2,
+              alignItems: { xs: "center", sm: "" },
+            }}
+          >
             <ProductFilter page={page} />
           </Stack>
 
@@ -120,15 +134,27 @@ function HomePage() {
                 ) : (
                   <Box
                     sx={{
-                      flexGrow: 1,
-                      ml: 4,
-                      width: { xs: 350, md: 900 },
+                      mt: { xs: 2 },
+                      width: { xs: "100%", md: 940 },
                     }}
                   >
                     {(search || sort) && <SearchingInfo />}
                     <Grid container spacing={1.5} mt={1}>
                       {items.map((item) => (
-                        <Grid key={item._id} item xs={12} sm={3} lg={3}>
+                        <Grid
+                          key={item._id}
+                          item
+                          xs={12}
+                          sm={6}
+                          md={4}
+                          lg={3}
+                          sx={{
+                            display: { xs: "flex", sm: "" },
+                            flexDirection: "column",
+                            alignItems: "center",
+                            height: 420,
+                          }}
+                        >
                           <ItemCard item={item} />
                         </Grid>
                       ))}

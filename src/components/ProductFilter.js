@@ -130,7 +130,7 @@ function ProductFilter({ page }) {
 
   return (
     <>
-      <Box width={200}>
+      <Box width={{ sm: 200, xs: "100%" }}>
         <Stack m={1} spacing={2}>
           <Stack>
             <Typography variant="h6">Brand</Typography>

@@ -65,6 +65,10 @@ function ItemCard({ item }) {
         sx={{
           width: 220,
           height: 250,
+          display: "flex",
+          flexDirection: "column",
+          alignContent: "center",
+          justifyContent: "center",
         }}
       >
         <Typography fontStyle="bold" gutterBottom variant="h5" component="div">

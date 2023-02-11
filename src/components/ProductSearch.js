@@ -50,7 +50,7 @@ export default function ProductSearch({ page }) {
   }, [page, queryValue, dispatch, search]);
 
   return (
-    <Box color="#212121" sx={{ borderRadius: 20 }} mt={2} mr={3}>
+    <Box color="#212121" mt={2} mr={3}>
       <FormProvider methods={methods} onSubmit={handleSubmit(onSubmit)}>
         <FTextField
           InputProps={{

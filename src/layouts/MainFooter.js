@@ -87,33 +87,40 @@ function MainFooter() {
       <Box
         name="contact"
         sx={{
-          height: { xs: 350, md: 180 },
+          height: { xs: 450, md: 180 },
           backgroundColor: "#f5f5f5",
-          display: { xs: "", sm: "flex" },
+          display: "flex",
+          flexDirection: { xs: "column", sm: "row" },
           justifyContent: "space-evenly",
           p: 1,
         }}
       >
         <Stack spacing={1} name="contact">
-          <Typography mb={2} variant="h6">
+          <Typography mb={{ sm: 2, xs: 0 }} variant="h6">
             CONTACT
           </Typography>
           <Box sx={styles.contactStyle} component="div">
             <AddBusinessIcon />
-            <Typography variant="subtitle2">HCMC, VietNam</Typography>
+            <Typography ml={1} variant="subtitle2">
+              HCMC, VietNam
+            </Typography>
           </Box>
           <Box sx={styles.contactStyle} component="div">
             <ContactPhoneIcon />
-            <Typography variant="subtitle2">+84 999 999 999</Typography>
+            <Typography ml={1} variant="subtitle2">
+              +84 999 999 999
+            </Typography>
           </Box>
           <Box sx={styles.contactStyle} component="div">
             <MailIcon />
-            <Typography variant="subtitle2">sneakerHCMC@gmail.com</Typography>
+            <Typography ml={1} variant="subtitle2">
+              sneakerHCMC@gmail.com
+            </Typography>
           </Box>
         </Stack>
 
         <Stack spacing={0.5} name="about">
-          <Typography mb={2} variant="h6">
+          <Typography mb={{ sm: 2, xs: 0 }} variant="h6">
             LINKS
           </Typography>
           {CONTACT.map((value) => (
