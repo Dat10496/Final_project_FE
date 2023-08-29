@@ -53,7 +53,11 @@ function ItemCard({ item }) {
               component="img"
               width="100%"
               height="100%"
-              src={`${DOMAIN_URL}${item.image}`}
+              src={
+                item?.image?.charAt(0) === "/"
+                  ? ` ${DOMAIN_URL}${item.image}`
+                  : item?.image
+              }
               alt={item.brand}
             />
           </Box>
