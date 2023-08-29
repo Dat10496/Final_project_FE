@@ -19,10 +19,10 @@ function Router() {
         <Route path="/items/:id" element={<DetailPage />} />
         <Route path="/filter/:value" element={<HomePage />} />
         <Route path="/filter/:value/page/:page" element={<HomePage />} />
-        <Route path="/search=:search" element={<HomePage />} />
-        <Route path="/search=:search/page/:page" element={<HomePage />} />
-        <Route path="/sort=:sort" element={<HomePage />} />
-        <Route path="/sort=:sort/page/:page" element={<HomePage />} />
+        <Route path="/search/:search" element={<HomePage />} />
+        <Route path="/search/:search/page/:page" element={<HomePage />} />
+        <Route path="/sort/:sort" element={<HomePage />} />
+        <Route path="/sort/:sort/page/:page" element={<HomePage />} />
       </Route>
 
       <Route

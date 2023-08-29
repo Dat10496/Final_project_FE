@@ -45,9 +45,9 @@ function HomePage() {
     if (value) {
       return `/filter/${value}/page/${item.page}`;
     } else if (search) {
-      return `/search=${search}/page/${item.page}`;
+      return `/search/${search}/page/${item.page}`;
     } else if (sort) {
-      return `/sort=${sort}/page/${item.page}`;
+      return `/sort/${sort}/page/${item.page}`;
     } else {
       return `/page/${item.page}`;
     }

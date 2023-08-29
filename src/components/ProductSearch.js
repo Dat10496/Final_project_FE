@@ -32,7 +32,7 @@ export default function ProductSearch({ page }) {
         navigate("/");
       } else {
         setQueryValue(brand);
-        navigate(`/search=${brand}`);
+        navigate(`/search/${brand}`);
       }
     } catch (error) {
       reset();

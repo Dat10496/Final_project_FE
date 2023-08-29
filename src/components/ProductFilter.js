@@ -44,6 +44,7 @@ function ProductFilter({ page }) {
   const [sortByRating, setSortByRating] = useState({ rating: "" });
   const [sortByBrand, setSortByBrand] = useState({});
   const [controlBtn, setControlBtn] = useState(false);
+  
 
   const dispatch = useDispatch();
   const navigate = useNavigate();

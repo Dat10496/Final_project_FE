@@ -33,7 +33,7 @@ export default function ProductSort({ page }) {
     setSortValue(value);
 
     if (value) {
-      navigate(`/sort=${value}`);
+      navigate(`/sort/${value}`);
     }
   };
 
