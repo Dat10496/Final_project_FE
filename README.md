@@ -31,7 +31,12 @@ password: 123456789
 
 ### Back-end
 
-- Using AdminJS library manages models friendly and easily - Link to admin dashboard: https://sneaker-app-dat.herokuapp.com/admin/login
+- Using AdminJS library manages models friendly and easily - Link to admin dashboard: https://sneaker-app-api.onrender.com/admin/login
+</br>
+```
+email: adminsneaker@gmail.com
+password: adminsneaker
+```
 
 - Using Passport library for Login with google account
 
