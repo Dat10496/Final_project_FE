@@ -33,10 +33,12 @@ password: 123456789
 
 - Using AdminJS library manages models friendly and easily - Link to admin dashboard: https://sneaker-app-api.onrender.com/admin/login
 </br>
+
 ```
 email: adminsneaker@gmail.com
 password: adminsneaker
 ```
+</br>
 
 - Using Passport library for Login with google account
 
