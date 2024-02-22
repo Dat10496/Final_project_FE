@@ -6,6 +6,35 @@ import { DOMAIN_URL } from "../../app/config";
 import "./itemStyle.css";
 import AddToCartButton from "../../components/AddToCartButton";
 
+
+const styles = {
+  boxCover: {
+    width: 220,
+    height: 250,
+    "&:hover": {
+      opacity: 0.9,
+      cursor: "pointer",
+    },
+  },
+  boxImg: {
+    boxShadow: 3,
+    borderRadius: 1.2,
+    zIndex: "1",
+    "&:hover": {
+      border: "1px solid #FF8243",
+      boxShadow: 5,
+    },
+  },
+  cardContent: {
+    width: 220,
+    height: 250,
+    display: "flex",
+    flexDirection: "column",
+    alignContent: "center",
+    justifyContent: "center",
+  },
+};
+
 function ItemCard({ item }) {
   const [display, setDisplay] = useState("not-displayed");
 
@@ -23,16 +52,7 @@ function ItemCard({ item }) {
 
   return (
     <>
-      <Box
-        sx={{
-          width: 220,
-          height: 250,
-          "&:hover": {
-            opacity: 0.9,
-            cursor: "pointer",
-          },
-        }}
-      >
+      <Box sx={styles.boxCover}>
         <Box
           onMouseOver={(e) => showButton(e)}
           onMouseLeave={(e) => hideButton(e)}
@@ -41,15 +61,7 @@ function ItemCard({ item }) {
           <Box sx={{ width: 220, height: 220 }}>
             <Box
               onClick={() => navigate(`/items/${itemId}`)}
-              sx={{
-                boxShadow: 3,
-                borderRadius: 1.2,
-                zIndex: "1",
-                "&:hover": {
-                  border: "1px solid #FF8243",
-                  boxShadow: 5,
-                },
-              }}
+              sx={styles.boxImg}
               component="img"
               width="100%"
               height="100%"
@@ -65,16 +77,7 @@ function ItemCard({ item }) {
         </Box>
       </Box>
 
-      <CardContent
-        sx={{
-          width: 220,
-          height: 250,
-          display: "flex",
-          flexDirection: "column",
-          alignContent: "center",
-          justifyContent: "center",
-        }}
-      >
+      <CardContent sx={styles.cardContent}>
         <Typography fontStyle="bold" gutterBottom variant="h5" component="div">
           {item.brand}
         </Typography>

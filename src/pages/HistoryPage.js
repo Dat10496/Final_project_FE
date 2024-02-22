@@ -48,6 +48,19 @@ const styles = {
     borderRadius: 3,
     m: 2,
   },
+  container: {
+    maxWidth: { xs: 400, md: "200vh" },
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  boxWrapStatus: {
+    display: "flex",
+    alignContent: "center",
+    justifyContent: "center",
+  },
+  tableRow: { "&:last-child td, &:last-child th": { border: 0 } },
 };
 
 function HistoryPage() {
@@ -78,15 +91,7 @@ function HistoryPage() {
             </Link>
             <Typography color="#212121">History</Typography>
           </Breadcrumbs>
-          <Container
-            sx={{
-              maxWidth: { xs: 400, md: "200vh" },
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
+          <Container sx={styles.container}>
             <Box sx={styles.styleBoxCover} name="userInfo">
               <Stack direction="row" name="user">
                 <Box sx={styles.styleBoxIcon}>
@@ -116,13 +121,7 @@ function HistoryPage() {
                     Shipping: {paymentDetail?.address?.country_code}
                   </Typography>
 
-                  <Box
-                    sx={{
-                      display: "flex",
-                      alignContent: "center",
-                      justifyContent: "center",
-                    }}
-                  >
+                  <Box sx={styles.boxWrapStatus}>
                     {paymentDetail?.data?.status === "COMPLETED" ? (
                       <Typography variant="subtitle1">
                         Payment:
@@ -174,10 +173,7 @@ function HistoryPage() {
                 </TableHead>
                 <TableBody>
                   {paymentDetail?.product?.map((oder) => (
-                    <TableRow
-                      key={oder.product._id}
-                      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                    >
+                    <TableRow key={oder.product._id} sx={styles.tableRow}>
                       <TableCell component="th" scope="row">
                         <Box
                           component="img"

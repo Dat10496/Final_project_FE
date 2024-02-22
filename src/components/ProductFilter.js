@@ -18,33 +18,17 @@ import ClearAllIcon from "@mui/icons-material/ClearAll";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { getItems } from "../features/item/itemSlice";
-
-const FILTER_BY_RATING = [
-  { value: "$lte 3", label: "Below 3" },
-  { value: "$gt 3, $lt 4", label: "From 3 - 4" },
-  { value: "$gte 4", label: "Above 4" },
-];
-
-const FILTER_BY_PRICE = [
-  { value: "$lte 500", label: "Below $500" },
-  { value: "$gte 500, $lte 1500", label: "Between $500 - $1500" },
-  { value: "$gte 1500", label: "Above $1500" },
-];
-
-const FILTER_BY_BRAND = [
-  { value: "Asian", label: "Asian" },
-  { value: "Campus", label: "Campus" },
-  { value: "Reebok", label: "Reebok" },
-  { value: "Sparx", label: "Sparx" },
-  { value: "Adidas", label: "Adidas" },
-];
+import {
+  FILTER_BY_RATING,
+  FILTER_BY_PRICE,
+  FILTER_BY_BRAND,
+} from "../app/config";
 
 function ProductFilter({ page }) {
   const [sortByPrice, setSortByPrice] = useState({ price: "" });
   const [sortByRating, setSortByRating] = useState({ rating: "" });
   const [sortByBrand, setSortByBrand] = useState({});
   const [controlBtn, setControlBtn] = useState(false);
-  
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -127,13 +111,12 @@ function ProductFilter({ page }) {
     // eslint-disable-next-line
   }, [sortByBrand, sortByPrice, sortByRating, page]);
 
-  useEffect(() => {}, []);
-
   return (
     <>
       <Box width={{ sm: 200, xs: "100%" }}>
         <Stack m={1} spacing={2}>
           <Stack>
+            {/* Filter by brand */}
             <Typography variant="h6">Brand</Typography>
             {FILTER_BY_BRAND.map((option) => (
               <FormGroup key={option.value}>
@@ -152,7 +135,9 @@ function ProductFilter({ page }) {
             ))}
           </Stack>
           <Divider variant="middle" />
+          {/*  */}
 
+          {/* Filter by price */}
           <Stack>
             <Typography variant="h6">Price</Typography>
 
@@ -171,7 +156,9 @@ function ProductFilter({ page }) {
             </FormControl>
           </Stack>
           <Divider variant="middle" />
+          {/*  */}
 
+          {/* Filter by rating */}
           <Stack>
             <Typography variant="h6">Rating</Typography>
 
@@ -195,6 +182,7 @@ function ProductFilter({ page }) {
             </FormControl>
           </Stack>
         </Stack>
+        {/*  */}
 
         <Stack>
           <Button

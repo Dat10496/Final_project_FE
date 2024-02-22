@@ -21,6 +21,10 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 import useAuth from "../hooks/useAuth";
 
+const styles = {
+  boxCoverBreakCrum: { position: "absolute", left: "5%", top: "5%" },
+};
+
 const registerSchema = yup.object().shape({
   name: yup.string().required("Name is required"),
   email: yup.string().email("Invalid email").required("Email is required"),
@@ -73,10 +77,7 @@ function RegisterPage() {
 
   return (
     <Container maxWidth="xs">
-      <Box
-        sx={{ position: "absolute", left: "5%", top: "5%" }}
-        name="breadcrumbs"
-      >
+      <Box sx={styles.boxCoverBreakCrum} name="breadcrumbs">
         <Breadcrumbs color="#fff" m={1} separator="›" aria-label="breadcrumb">
           <Link
             underline="hover"
@@ -103,11 +104,31 @@ function RegisterPage() {
               Sign in
             </Link>
           </Alert>
-          <FTextField name="name" label="Full name" />
-          <FTextField name="email" label="Email" />
+          <FTextField
+            name="name"
+            label="Full name"
+            border="info.main"
+            borderFocus="secondary.main"
+            borderHover="secondary.lighter"
+            labelColor="#fff"
+          />
+
+          <FTextField
+            name="email"
+            label="Email"
+            border="info.main"
+            borderFocus="secondary.main"
+            borderHover="secondary.lighter"
+            labelColor="#fff"
+          />
+
           <FTextField
             name="password"
             label="Password"
+            border="info.main"
+            borderFocus="secondary.main"
+            borderHover="secondary.lighter"
+            labelColor="#fff"
             type={showPassword ? "text" : "password"}
             InputProps={{
               endAdornment: (
@@ -128,9 +149,14 @@ function RegisterPage() {
               ),
             }}
           />
+
           <FTextField
             name="passwordConfirmation"
             label="Password Confirmation"
+            border="info.main"
+            borderFocus="secondary.main"
+            borderHover="secondary.lighter"
+            labelColor="#fff"
             type={showPasswordConfirmation ? "text" : "password"}
             InputProps={{
               endAdornment: (

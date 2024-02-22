@@ -24,6 +24,20 @@ import useAuth from "../hooks/useAuth";
 import googleImg from "../images/ggleImg.png";
 import { BASE_URL } from "../app/config";
 
+const styles = {
+  boxCoverLink: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  boxCoverImg: {
+    mr: 2,
+    alignContent: "center",
+    display: "flex",
+    justifyContent: "center",
+  },
+};
+
 const loginSchema = yup.object().shape({
   email: yup.string().email("Invalid email").required("Email is required"),
   password: yup.string().required("Password is required"),
@@ -96,10 +110,23 @@ function LogInPage() {
               Get started
             </Link>
           </Alert>
-          <FTextField name="email" label="Email" />
+
+          <FTextField
+            name="email"
+            label="Email"
+            border="info.main"
+            borderFocus="secondary.main"
+            borderHover="secondary.lighter"
+            labelColor="#fff"
+          />
+
           <FTextField
             name="password"
             label="Password"
+            border="info.main"
+            borderFocus="secondary.main"
+            borderHover="secondary.lighter"
+            labelColor="#fff"
             type={showPassword ? "text" : "password"}
             InputProps={{
               endAdornment: (
@@ -120,13 +147,8 @@ function LogInPage() {
               ),
             }}
           />
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
+
+          <Box sx={styles.boxCoverLink}>
             <Link
               underline="none"
               variant="subtitle2"
@@ -156,15 +178,7 @@ function LogInPage() {
             variant="contained"
             color="info"
           >
-            <Box
-              sx={{
-                mr: 2,
-                alignContent: "center",
-                display: "flex",
-                justifyContent: "center",
-              }}
-              component="div"
-            >
+            <Box sx={styles.boxCoverImg} component="div">
               <img
                 height="25px"
                 width="25px"
