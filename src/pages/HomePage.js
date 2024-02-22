@@ -39,11 +39,13 @@ const styles = {
   },
   link: { display: "flex", alignItems: "center" },
   boxWrapSearchSort: {
-    display: { xs: "", sm: "flex" },
+    display: { xs: "flex", sm: "flex" },
     width: { xs: "80%" },
-    justifyContent: "flex-end",
-    alignItems: "center",
+    justifyContent: { sm: "flex-end", xs: "space-between" },
+    alignItems: { sm: "center" },
     mr: 3,
+    minHeight: 85,
+    flexDirection: { xs: "column", sm: "row" },
   },
   stackCoverFilter: {
     mr: 2,

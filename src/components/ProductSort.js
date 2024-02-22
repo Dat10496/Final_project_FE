@@ -4,13 +4,18 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { getItems } from "../features/item/itemSlice";
 import { SORT_BY_ITEM } from "../app/config";
+
+const styles = {
+  typo: { fontSize: { sm: 14, xs: 12, md: 16 } },
+  button: { color: "#212121", minWidth: 100 },
+};
 
 export default function ProductSort({ page }) {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -43,16 +48,15 @@ export default function ProductSort({ page }) {
   }, [sortValue, page, dispatch, sort]);
 
   return (
-    <>
+    <Box>
       <Button
-        sx={{ color: "#212121" }}
-        p={0}
+        sx={styles.button}
         onClick={handleClick}
         endIcon={anchorEl ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
         variant="outlined"
         size="small"
       >
-        Sort By
+        <Typography sx={styles.typo}>Sort By</Typography>
       </Button>
       <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
         <Box>
@@ -66,6 +70,6 @@ export default function ProductSort({ page }) {
           ))}
         </Box>
       </Menu>
-    </>
+    </Box>
   );
 }
