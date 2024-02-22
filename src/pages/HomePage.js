@@ -29,6 +29,39 @@ import ProductSearch from "../components/ProductSearch";
 import { getItems } from "../features/item/itemSlice";
 import SearchingInfo from "../components/SearchingInfo";
 
+const styles = {
+  boxCover: {
+    display: { sm: "flex", xs: "block" },
+    justifyContent: "space-between",
+    alignItems: "center",
+    m: 1,
+    maxWidth: "200vh",
+  },
+  link: { display: "flex", alignItems: "center" },
+  boxWrapSearchSort: {
+    display: { xs: "", sm: "flex" },
+    width: { xs: "80%" },
+    justifyContent: "flex-end",
+    alignItems: "center",
+    mr: 3,
+  },
+  stackCoverFilter: {
+    mr: 2,
+    mt: 2,
+    alignItems: { xs: "center", sm: "" },
+  },
+  boxCoverGrid: {
+    mt: { xs: 2 },
+    width: { xs: "100%", md: 940 },
+  },
+  stackCoverPag: {
+    justifyContent: "center",
+    alignItems: "center",
+    display: "flex",
+    m: 1,
+  },
+};
+
 function HomePage() {
   const [searchParams] = useSearchParams();
   const { page, value, search, sort } = useParams();
@@ -68,55 +101,28 @@ function HomePage() {
   return (
     <>
       <Container>
-        <Box
-          sx={{
-            display: { sm: "flex", xs: "block" },
-            justifyContent: "space-between",
-            alignItems: "center",
-            m: 1,
-            maxWidth: "200vh",
-          }}
-        >
+        <Box sx={styles.boxCover}>
           <Breadcrumbs
             m={1}
             separator="›"
             aria-label="breadcrumb"
             sx={{ width: { xs: "90%" } }}
           >
-            <Link
-              underline="hover"
-              sx={{ display: "flex", alignItems: "center" }}
-              color="inherit"
-              href="/"
-            >
+            <Link underline="hover" sx={styles.link} color="inherit" href="/">
               <HomeIcon fontSize="medium" />
               SNEAKER STORE
             </Link>
             <Typography color="#212121">Home</Typography>
           </Breadcrumbs>
 
-          <Box
-            sx={{
-              display: { xs: "", sm: "flex" },
-              width: { xs: "80%" },
-              justifyContent: "flex-end",
-              alignItems: "center",
-              mr: 3,
-            }}
-          >
+          <Box sx={styles.boxWrapSearchSort}>
             <ProductSearch page={page} />
             <ProductSort page={page} />
           </Box>
         </Box>
 
         <Stack direction={{ xs: "column", sm: "row" }}>
-          <Stack
-            sx={{
-              mr: 2,
-              mt: 2,
-              alignItems: { xs: "center", sm: "" },
-            }}
-          >
+          <Stack sx={styles.stackCoverFilter}>
             <ProductFilter page={page} />
           </Stack>
 
@@ -132,12 +138,7 @@ function HomePage() {
                     </Box>
                   </>
                 ) : (
-                  <Box
-                    sx={{
-                      mt: { xs: 2 },
-                      width: { xs: "100%", md: 940 },
-                    }}
-                  >
+                  <Box sx={styles.boxCoverGrid}>
                     {(search || sort) && <SearchingInfo />}
                     <Grid container spacing={1.5} mt={1}>
                       {items.map((item) => (
@@ -166,15 +167,7 @@ function HomePage() {
           </Stack>
         </Stack>
 
-        <Stack
-          sx={{
-            justifyContent: "center",
-            alignItems: "center",
-            display: "flex",
-            m: 1,
-          }}
-          spacing={1}
-        >
+        <Stack sx={styles.stackCoverPag} spacing={1}>
           {(totalPages !== 0 || totalPages !== 1) && (
             <Pagination
               page={Number(page) || 1}

@@ -3,20 +3,15 @@ import { React, useState, memo } from "react";
 import { capitalCase } from "change-case";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import { Link } from "@mui/material";
-import PaymentsIcon from "@mui/icons-material/Payments";
-import UpdateIcon from "@mui/icons-material/Update";
 import { ToastContainer } from "react-toastify";
 
-import PaymentHistory from "../components/PaymentHistory";
-import PaymentCart from "../components/PaymentCart";
+
+
+import { CURRENT_TAB } from "../app/config";
 
 function PaymentPage() {
   const [currentTab, setCurrentTab] = useState("Cart");
 
-  const CURRENT_TAB = [
-    { value: "Cart", icon: <PaymentsIcon />, component: <PaymentCart /> },
-    { value: "History", icon: <UpdateIcon />, component: <PaymentHistory /> },
-  ];
   return (
     <Container
       sx={{

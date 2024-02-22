@@ -7,21 +7,29 @@ import { toast } from "react-toastify";
 import useAuth from "../hooks/useAuth";
 import "react-toastify/dist/ReactToastify.css";
 
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  height: 100,
-  backgroundColor: "#D6E4FF",
-  border: "1px solid #9e9e9e",
-  borderRadius: 10,
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  flexDirection: "column",
-  p: 4,
+const styles = {
+  box: {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 400,
+    height: 100,
+    backgroundColor: "#D6E4FF",
+    border: "1px solid #9e9e9e",
+    borderRadius: 10,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "column",
+    p: 4,
+  },
+  button: {
+    backgroundColor: "#bf360c",
+    position: "absolute",
+    transform: "translate(0%, -10%)",
+    duration: 5,
+  },
 };
 
 const AddToCartButton = ({ display, itemDetail }) => {
@@ -73,12 +81,7 @@ const AddToCartButton = ({ display, itemDetail }) => {
         onClick={handleAddToCart}
         size="small"
         startIcon={<Add />}
-        style={{
-          backgroundColor: "#bf360c",
-          position: "absolute",
-          transform: "translate(0%, -10%)",
-          duration: 5,
-        }}
+        style={styles.button}
         sx={{ width: 220 }}
         variant="contained"
       >
@@ -86,7 +89,7 @@ const AddToCartButton = ({ display, itemDetail }) => {
       </Button>
 
       <Modal open={openModalLogin} onClose={handleModalLoginClose}>
-        <Box style={style}>
+        <Box style={styles.box}>
           <Typography color="success.dark" variant="h6">
             Please Login & Add to Cart
           </Typography>
@@ -100,7 +103,7 @@ const AddToCartButton = ({ display, itemDetail }) => {
         </Box>
       </Modal>
       <Modal open={openAlertAddToCart} onClose={handleAlertAddToCartClose}>
-        <Box style={style}>
+        <Box style={styles.box}>
           <Typography color="success.dark" variant="subtitle1">
             This product has been in your cart already
           </Typography>

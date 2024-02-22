@@ -19,6 +19,39 @@ import { getItemDetail } from "../features/item/itemSlice";
 import { DOMAIN_URL } from "../app/config";
 import ImgSold from "../images/sold.png";
 
+
+const styles = {
+  boxCover: {
+    display: { xs: "", sm: "flex" },
+    mt: 3,
+    p: 1,
+    minHeight: "100vh",
+    justifyContent: "space-between",
+  },
+  boxWrap: {
+    display: { xs: "", sm: "flex" },
+    mt: 3,
+    p: 1,
+    minHeight: "100vh",
+    justifyContent: "space-between",
+  },
+  card: {
+    width: { xs: 350, sm: 500 },
+    height: { xs: 350, sm: 500 },
+  },
+  boxWrapContent: {
+    height: { xs: 350, sm: 500 },
+    width: { xs: 350, sm: 500 },
+    p: 1,
+    mr: 5,
+  },
+  boxWrapTypoSold: {
+    display: "flex",
+    alignItems: "center",
+    mt: 1,
+  },
+};
+
 function DetailPage() {
   const params = useParams();
   const dispatch = useDispatch();
@@ -43,28 +76,9 @@ function DetailPage() {
             <Typography color="text.primary">{itemDetail.brand}</Typography>
           </Breadcrumbs>
 
-          <Box
-            sx={{
-              display: { xs: "", sm: "flex" },
-              mt: 3,
-              p: 1,
-              minHeight: "100vh",
-              justifyContent: "space-between",
-            }}
-          >
-            <Box
-              sx={{
-                height: { xs: 350, sm: 500 },
-                width: { xs: 350, sm: 500 },
-              }}
-            >
-              <Card
-                sx={{
-                  width: { xs: 350, sm: 500 },
-                  height: { xs: 350, sm: 500 },
-                }}
-                name="media"
-              >
+          <Box sx={styles.boxCover}>
+            <Box sx={styles.boxWrap}>
+              <Card sx={styles.card} name="media">
                 <Box
                   component="img"
                   height="100%"
@@ -75,14 +89,7 @@ function DetailPage() {
               </Card>
             </Box>
 
-            <Box
-              sx={{
-                height: { xs: 350, sm: 500 },
-                width: { xs: 350, sm: 500 },
-                p: 1,
-                mr: 5,
-              }}
-            >
+            <Box sx={styles.boxWrapContent}>
               <Typography gutterBottom variant="h3" component="div">
                 {itemDetail.brand}
               </Typography>
@@ -96,13 +103,7 @@ function DetailPage() {
                 {itemDetail.details}
               </Typography>
 
-              <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  mt: 1,
-                }}
-              >
+              <Box sx={styles.boxWrapTypoSold}>
                 <Box sx={{ height: 40, width: 40 }}>
                   <img src={ImgSold} alt="soldImage" width="100%" />
                 </Box>

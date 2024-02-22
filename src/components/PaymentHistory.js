@@ -17,6 +17,20 @@ import { useNavigate } from "react-router-dom";
 
 import { getHistory } from "../features/item/itemSlice";
 
+const styles = {
+  boxCover: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "success.lighter",
+    borderRadius: 1,
+    mb: 2,
+    p: 1,
+    width: { xs: 350, md: 700 },
+  },
+};
+
 function PaymentHistory() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -28,19 +42,7 @@ function PaymentHistory() {
 
   return (
     <Container sx={{ maxWidth: { xs: 400, sm: "100vh" }, mt: 1 }}>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          backgroundColor: "success.lighter",
-          borderRadius: 1,
-          mb: 2,
-          p: 1,
-          width: { xs: 350, md: 700 },
-        }}
-      >
+      <Box sx={styles.boxCover}>
         <Typography variant="h4">HISTORY</Typography>
         <Typography variant="h6">You have {history.length} order</Typography>
       </Box>

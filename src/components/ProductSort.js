@@ -10,12 +10,7 @@ import { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { getItems } from "../features/item/itemSlice";
-
-const SORT_BY_ITEM = [
-  { value: "createdAt: -1", label: "Newest" },
-  { value: "price: -1", label: "Price: High-Low" },
-  { value: "price: 1", label: "Price: Low-High" },
-];
+import { SORT_BY_ITEM } from "../app/config";
 
 export default function ProductSort({ page }) {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -54,6 +49,8 @@ export default function ProductSort({ page }) {
         p={0}
         onClick={handleClick}
         endIcon={anchorEl ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+        variant="outlined"
+        size="small"
       >
         Sort By
       </Button>

@@ -13,19 +13,8 @@ import paymentImage from "../images/payment-1.png";
 import AddBusinessIcon from "@mui/icons-material/AddBusiness";
 import ContactPhoneIcon from "@mui/icons-material/ContactPhone";
 import MailIcon from "@mui/icons-material/Mail";
-import TwitterIcon from "@mui/icons-material/Twitter";
-import FacebookIcon from "@mui/icons-material/Facebook";
-import YouTubeIcon from "@mui/icons-material/YouTube";
-import InstagramIcon from "@mui/icons-material/Instagram";
 
-const CONTACT = ["About Us", "Contact Us", "My Account", "Blog"];
-
-const ICON_LINK = [
-  { name: "twitter", icon: <TwitterIcon /> },
-  { name: "facebook", icon: <FacebookIcon /> },
-  { name: "youtube", icon: <YouTubeIcon /> },
-  { name: "instagram", icon: <InstagramIcon /> },
-];
+import { CONTACT, ICON_LINK } from "../app/config";
 
 const styles = {
   contactStyle: {
@@ -37,6 +26,45 @@ const styles = {
     backgroundImage: `url(${saleImage})`,
     height: 300,
   },
+  coverTypo: {
+    position: "relative",
+    right: { xs: "", sm: "15%" },
+    display: "flex",
+    justifyContent: "center",
+    flexDirection: "column",
+    alignItems: "center",
+  },
+  coverInput: {
+    position: "relative",
+    right: { xs: "", sm: "15%" },
+    display: "flex",
+    justifyContent: "center",
+  },
+  boxContact: {
+    height: { xs: 450, md: 180 },
+    backgroundColor: "#f5f5f5",
+    display: "flex",
+    flexDirection: { xs: "column", sm: "row" },
+    justifyContent: "space-evenly",
+    p: 1,
+  },
+  boxFooter: {
+    height: { xs: 280, md: 50 },
+    backgroundColor: "primary.darker",
+    display: { xs: "", md: "flex" },
+    justifyContent: "space-evenly",
+  },
+  link: {
+    "&:hover": {
+      cursor: "pointer",
+    },
+  },
+  tooltip: {
+    "&:hover": {
+      color: "secondary.darker",
+      cursor: "pointer",
+    },
+  },
 };
 
 function MainFooter() {
@@ -44,16 +72,7 @@ function MainFooter() {
     <Box position="static" mt={2}>
       <Box className="saleImage">
         <Box sx={{ p: 3 }} style={styles.paperStyle}>
-          <Box
-            sx={{
-              position: "relative",
-              right: { xs: "", sm: "15%" },
-              display: "flex",
-              justifyContent: "center",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
+          <Box sx={styles.coverTypo}>
             <Typography color="primary.contrastText" variant="h4">
               Do you need more sale?
             </Typography>
@@ -62,15 +81,7 @@ function MainFooter() {
             </Typography>
           </Box>
 
-          <Box
-            sx={{
-              position: "relative",
-              right: { xs: "", sm: "15%" },
-              display: "flex",
-              justifyContent: "center",
-            }}
-            component="div"
-          >
+          <Box sx={styles.coverInput} component="div">
             <Input
               sx={{ color: "primary.contrastText" }}
               placeholder="Your email..."
@@ -84,17 +95,7 @@ function MainFooter() {
         </Box>
       </Box>
 
-      <Box
-        name="contact"
-        sx={{
-          height: { xs: 450, md: 180 },
-          backgroundColor: "#f5f5f5",
-          display: "flex",
-          flexDirection: { xs: "column", sm: "row" },
-          justifyContent: "space-evenly",
-          p: 1,
-        }}
-      >
+      <Box name="contact" sx={styles.boxContact}>
         <Stack spacing={1} name="contact">
           <Typography mb={{ sm: 2, xs: 0 }} variant="h6">
             CONTACT
@@ -130,6 +131,7 @@ function MainFooter() {
               variant="subtitle2"
               underline="none"
               href="#"
+              sx={styles.tooltip}
             >
               {value}
             </Link>
@@ -139,12 +141,7 @@ function MainFooter() {
         <Stack mt={1} spacing={3} direction="row" name="link">
           {ICON_LINK.map((value) => (
             <Tooltip
-              sx={{
-                "&:hover": {
-                  opacity: [0.9, 0.8, 0.7],
-                  cursor: "pointer",
-                },
-              }}
+              sx={styles.tooltip}
               key={value.name}
               title={value.name}
               enterDelay={500}
@@ -156,18 +153,17 @@ function MainFooter() {
         </Stack>
       </Box>
 
-      <Box
-        sx={{
-          height: { xs: 280, md: 50 },
-          backgroundColor: "primary.darker",
-          display: { xs: "", md: "flex" },
-          justifyContent: "space-evenly",
-        }}
-        name="footer"
-      >
+      <Box sx={styles.boxFooter} name="footer">
         <Box color="primary.contrastText">
           <Typography variant="body2" align="center" p={1}>
-            {"Copyright c"} <Link to="#">Sneaker</Link>
+            {"Copyright"}{" "}
+            <Link
+              sx={styles.link}
+              color="secondary"
+              href="https://github.com/Dat10496"
+            >
+              DatVo
+            </Link>
             {"."}
             {new Date().getFullYear()}
           </Typography>

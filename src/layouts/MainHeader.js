@@ -15,6 +15,38 @@ import { Badge, Divider, Tooltip } from "@mui/material";
 import Logo from "../components/Logo";
 import useAuth from "../hooks/useAuth";
 
+
+const styles = {
+  typoBrand: {
+    mr: 2,
+    ml: 2,
+    display: { xs: "none", md: "flex" },
+    fontFamily: "monospace",
+    fontWeight: 700,
+    letterSpacing: "0.3rem",
+    color: "inherit",
+    textDecoration: "none",
+  },
+  typoBrandMobile: {
+    mr: 2,
+    display: { xs: "flex", md: "none" },
+    flexGrow: 1,
+    fontFamily: "monospace",
+    fontWeight: 700,
+    letterSpacing: ".3rem",
+    color: "inherit",
+    textDecoration: "none",
+  },
+  anchorOrigin: {
+    vertical: "bottom",
+    horizontal: "right",
+  },
+  transformOrigin: {
+    vertical: "top",
+    horizontal: "right",
+  },
+};
+
 const MainHeader = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const navigate = useNavigate();
@@ -46,16 +78,7 @@ const MainHeader = () => {
             noWrap
             component={RouterLink}
             to="/"
-            sx={{
-              mr: 2,
-              ml: 2,
-              display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
+            sx={styles.typoBrand}
           >
             Sneaker
           </Typography>
@@ -67,16 +90,7 @@ const MainHeader = () => {
             noWrap
             component={RouterLink}
             to="/"
-            sx={{
-              mr: 2,
-              display: { xs: "flex", md: "none" },
-              flexGrow: 1,
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
+            sx={styles.typoBrandMobile}
           >
             Sneaker
           </Typography>
@@ -85,9 +99,6 @@ const MainHeader = () => {
               <Tooltip title={user ? "User" : "Login"}>
                 <IconButton
                   size="large"
-                  aria-label="account of current user"
-                  aria-controls="menu-appbar"
-                  aria-haspopup="true"
                   onClick={handleOpenNavMenu}
                   color="inherit"
                 >
@@ -97,15 +108,9 @@ const MainHeader = () => {
               <Menu
                 id="menu-appbar"
                 anchorEl={anchorElNav}
-                anchorOrigin={{
-                  vertical: "bottom",
-                  horizontal: "right",
-                }}
+                anchorOrigin={styles.anchorOrigin}
                 keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
+                transformOrigin={styles.transformOrigin}
                 open={Boolean(anchorElNav)}
                 onClose={handleCloseNavMenu}
               >
@@ -140,9 +145,6 @@ const MainHeader = () => {
             <Tooltip title={user ? "User" : "Login"}>
               <IconButton
                 size="large"
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
                 color="inherit"
                 component={RouterLink}
                 to="/login"

@@ -12,9 +12,18 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import { toast } from "react-toastify";
 
 import useAuth from "../hooks/useAuth";
-import { DOMAIN_URL } from "../app/config";
+import { DOMAIN_URL, QTY_ITEMS } from "../app/config";
 
-const QTY_ITEMS = [1, 2, 3, 4, 5];
+const styles = {
+  box: {
+    display: { xs: "", md: "flex" },
+    width: { xs: 380, sm: 600 },
+    alignItems: "center",
+    p: 1,
+    justifyContent: "space-between",
+    mt: 1,
+  },
+};
 
 function Cart({ cart }) {
   const auth = useAuth();
@@ -53,16 +62,7 @@ function Cart({ cart }) {
     <>
       {cart.map((product) => (
         <Box component="div" key={product.product._id}>
-          <Box
-            sx={{
-              display: { xs: "", md: "flex" },
-              width: { xs: 380, sm: 600 },
-              alignItems: "center",
-              p: 1,
-              justifyContent: "space-between",
-              mt: 1,
-            }}
-          >
+          <Box sx={styles.box}>
             <Box
               component="img"
               height="120px"
