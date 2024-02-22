@@ -22,19 +22,13 @@ import ImgSold from "../images/sold.png";
 
 const styles = {
   boxCover: {
-    display: { xs: "", sm: "flex" },
-    mt: 3,
+    display: "flex",
+    flexDirection: { xs: "column", md: "row" },
     p: 1,
-    minHeight: "100vh",
-    justifyContent: "space-between",
+    alignItems: "center",
+    justifyContent: { xs: "center", md: "space-evenly" },
   },
-  boxWrap: {
-    display: { xs: "", sm: "flex" },
-    mt: 3,
-    p: 1,
-    minHeight: "100vh",
-    justifyContent: "space-between",
-  },
+
   card: {
     width: { xs: 350, sm: 500 },
     height: { xs: 350, sm: 500 },
@@ -43,7 +37,6 @@ const styles = {
     height: { xs: 350, sm: 500 },
     width: { xs: 350, sm: 500 },
     p: 1,
-    mr: 5,
   },
   boxWrapTypoSold: {
     display: "flex",
@@ -77,17 +70,15 @@ function DetailPage() {
           </Breadcrumbs>
 
           <Box sx={styles.boxCover}>
-            <Box sx={styles.boxWrap}>
-              <Card sx={styles.card} name="media">
-                <Box
-                  component="img"
-                  height="100%"
-                  width="100%"
-                  src={`${DOMAIN_URL}${itemDetail.image}`}
-                  alt={itemDetail.brand}
-                />
-              </Card>
-            </Box>
+            <Card sx={styles.card} name="media">
+              <Box
+                component="img"
+                height="100%"
+                width="100%"
+                src={`${DOMAIN_URL}${itemDetail.image}`}
+                alt={itemDetail.brand}
+              />
+            </Card>
 
             <Box sx={styles.boxWrapContent}>
               <Typography gutterBottom variant="h3" component="div">
